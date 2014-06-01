@@ -9,8 +9,6 @@ AKTagsInputView class implements a convenient input view for seek'n'selecting an
 - lookup-style accessory input view for selecting predefined tags
 - fast search by first letters
 
-#####TODO
-- avoid dublications for selected tags
 
 ###Demo
 (click on the gif below to watch HD youtube demo)
