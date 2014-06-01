@@ -2,14 +2,14 @@ AKTagsInputView
 ===============
 AKTagsInputView class implements a convenient input view for seek'n'selecting and writing tags data.
 
-Features:
+#####Features
 -write your own tags
 -forbidden symbols settings
 -space or coma separation
 -lookup-style accessory input view for selecting predefined tags
 -fast search by first letters
 
-TODOs:
+#####TODO
 -avoid dublications for selected tags
 
 ###Demo
