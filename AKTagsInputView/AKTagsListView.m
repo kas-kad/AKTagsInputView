@@ -7,6 +7,7 @@
 //
 #import "AKTagsDefines.h"
 #import "AKTagsListView.h"
+#import "NSString+StringSizeWithFont.h"
 
 @implementation AKTagsListView
 
@@ -103,14 +104,19 @@
 	return result;
 }
 
--(void)scrollToTheEnd
+- (void)scrollListInsertingItem:(NSString *)string
 {
-	[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedTags.count inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
+	CGFloat width = CGRectGetWidth(self.bounds);
+	CGFloat contentXOffset = (self.collectionView.contentSize.width - width);
+	contentXOffset = MAX(contentXOffset + [AKTagCell preferredSizeWithTag:string deleteButtonEnabled:_allowDeleteTags].width, 0);
+	CGPoint offset = CGPointMake(contentXOffset, 0);
+	[self.collectionView setContentOffset:offset animated:YES];
 }
 
 - (void)addNewItemWithString:(NSString *)string completion:(void(^)(BOOL finished))compeltion
 {
-	[self scrollToTheEnd];
+	[self scrollListInsertingItem:string];
+	
 	// this is a workaround of a big problem when CV resigns first responder while dequeue cells.
 	// so that my textfield cell may become to unwanted state and get into an UI mess
 	// I have to insert new cells only having textfield cell visible, so first I scroll to it and only after that
