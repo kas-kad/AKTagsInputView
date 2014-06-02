@@ -25,7 +25,7 @@
 	_tagsInputView.lookupTags = @[@"ios", @"iphone", @"objective-c", @"development", @"cocoa", @"xcode", @"icloud"];
 	_tagsInputView.selectedTags = [NSMutableArray arrayWithArray:@[@"some", @"predefined", @"tags"]];
 	_tagsInputView.enableTagsLookup = YES;
-	_tagsInputView.placeholder = @"new tag";
+//	_tagsInputView.placeholder = @"+ Add";
 	return _tagsInputView;
 }
 -(void)btnPressed:(id)sender
@@ -63,7 +63,7 @@
 {
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 55, 290, 24)];;
 	label.textAlignment = NSTextAlignmentLeft;
-	label.text = @"SELECT TAGS";
+	label.text = @"TAGS";
 	label.font = AVENIR_NEXT(14);
 	return label;
 }

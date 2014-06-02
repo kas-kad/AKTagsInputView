@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9622CED193C882000DBF6F5 /* AKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B9622CEC193C882000DBF6F5 /* AKTextField.m */; };
 		B9EC363A193B797C0007C5FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC3639193B797C0007C5FF /* Foundation.framework */; };
 		B9EC363C193B797C0007C5FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC363B193B797C0007C5FF /* CoreGraphics.framework */; };
 		B9EC363E193B797C0007C5FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC363D193B797C0007C5FF /* UIKit.framework */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B9622CEB193C882000DBF6F5 /* AKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTextField.h; sourceTree = "<group>"; };
+		B9622CEC193C882000DBF6F5 /* AKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTextField.m; sourceTree = "<group>"; };
 		B9EC3636193B797C0007C5FF /* AKTagsInputViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AKTagsInputViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EC3639193B797C0007C5FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B9EC363B193B797C0007C5FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -194,6 +197,8 @@
 				B9EC3677193B79FF0007C5FF /* AKTagsListView.h */,
 				B9EC3678193B79FF0007C5FF /* AKTagsListView.m */,
 				B9EC368A193B7B8F0007C5FF /* AKTagsDefines.h */,
+				B9622CEB193C882000DBF6F5 /* AKTextField.h */,
+				B9622CEC193C882000DBF6F5 /* AKTextField.m */,
 			);
 			name = AKTagsInputView;
 			path = ../AKTagsInputView;
@@ -316,6 +321,7 @@
 				B9EC3650193B797C0007C5FF /* AKViewController.m in Sources */,
 				B9EC3679193B79FF0007C5FF /* AKTagCell.m in Sources */,
 				B9EC367B193B79FF0007C5FF /* AKTagsInputView.m in Sources */,
+				B9622CED193C882000DBF6F5 /* AKTextField.m in Sources */,
 				B9EC367D193B79FF0007C5FF /* AKTagsListView.m in Sources */,
 				B9EC3646193B797C0007C5FF /* main.m in Sources */,
 				B9EC3680193B7A160007C5FF /* NSString+StringSizeWithFont.m in Sources */,
@@ -516,6 +522,7 @@
 				B9EC366A193B797C0007C5FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B9EC366B193B797C0007C5FF /* Build configuration list for PBXNativeTarget "AKTagsInputViewExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +531,7 @@
 				B9EC366D193B797C0007C5FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

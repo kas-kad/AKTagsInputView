@@ -62,7 +62,6 @@
 		if (!_textFieldCell){ // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
 			_textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textFieldCell" forIndexPath:indexPath];
 			_textFieldCell.textField.delegate = self;
-			_textFieldCell.textField.placeholder = _placeholder;
 			
 			if (_enableTagsLookup){
 				_lookup = [[AKTagsLookup alloc] initWithTags:_lookupTags];
@@ -87,8 +86,13 @@
 #pragma mark - textFieldCell's delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	[self addNewItemWithString:textField.text completion:nil];
-	textField.text = nil;
+	if ([self tagNameIsValid:textField.text]){
+		[self addNewItemWithString:textField.text completion:nil];
+		textField.text = nil;
+	} else {
+		[textField resignFirstResponder];
+	}
+
 	return YES;
 }
 
@@ -112,8 +116,7 @@
 		}
 		
 		if ([string isEqualToString:@","] || (_separateTagsWithSpaceSymbol && [string isEqualToString:@" "])){
-			NSString *textFieldTrimmedContent = [textField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-			if (textFieldTrimmedContent.length > 0){
+			if ([self tagNameIsValid:(textField.text)]){
 				[self addNewItemWithString:textField.text completion:nil];
 				textField.text = nil;
 			}
@@ -150,6 +153,11 @@
 }
 
 #pragma mark - Helpers
+-(BOOL)tagNameIsValid:(NSString*)tagName
+{
+	NSString *textFieldTrimmedContent = [tagName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+	return (textFieldTrimmedContent.length > 0);
+}
 -(NSPredicate*)predicateExcludingTags:(NSArray*)tagsToExclude andFilterByString:(NSString*)string
 {
 	return [NSCompoundPredicate andPredicateWithSubpredicates:@[[self predicateExcludingTags:tagsToExclude], [NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", string]]];

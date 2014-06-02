@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AKTextField.h"
 @interface AKTagTextFieldCell : UICollectionViewCell
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) AKTextField *textField;
 @end
