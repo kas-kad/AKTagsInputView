@@ -30,4 +30,5 @@
  */
 @property (nonatomic, assign) BOOL enableTagsLookup;
 @property (nonatomic, strong) NSArray *lookupTags;
+@property (nonatomic, strong) NSString* placeholder;
 @end
