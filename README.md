@@ -9,6 +9,11 @@ AKTagsInputView class implements a convenient input view for seek'n'selecting an
 - lookup-style accessory input view for selecting predefined tags
 - fast search by first letters
 
+###Installing using CocoaPods
+Add the following to your Podfile.
+```ruby
+pod 'AKTagsInputView', '~> 1.0'
+```
 
 ###Demo
 (click on the gif below to watch HD youtube demo)
