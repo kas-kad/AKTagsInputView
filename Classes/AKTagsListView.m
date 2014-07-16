@@ -1,9 +1,8 @@
 //
-//  AKTagsView.m
-//  walletkeeper
+//  AKTagsListView.m
 //
 //  Created by Andrey Kadochnikov on 30.05.14.
-//  Copyright (c) 2014 CleverPumpkin Ltd. All rights reserved.
+//  Copyright (c) 2014 Andrey Kadochnikov. All rights reserved.
 //
 #import "AKTagsDefines.h"
 #import "AKTagsListView.h"

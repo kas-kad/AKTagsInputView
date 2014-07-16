@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B9622CED193C882000DBF6F5 /* AKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B9622CEC193C882000DBF6F5 /* AKTextField.m */; };
+		B9676C141977004C00AFCE83 /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C061977004C00AFCE83 /* AKTagCell.m */; };
+		B9676C151977004C00AFCE83 /* AKTagsInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C091977004C00AFCE83 /* AKTagsInputView.m */; };
+		B9676C161977004C00AFCE83 /* AKTagsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C0B1977004C00AFCE83 /* AKTagsListView.m */; };
+		B9676C171977004C00AFCE83 /* AKTagsLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C0D1977004C00AFCE83 /* AKTagsLookup.m */; };
+		B9676C181977004C00AFCE83 /* AKTagTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C0F1977004C00AFCE83 /* AKTagTextFieldCell.m */; };
+		B9676C191977004C00AFCE83 /* AKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C111977004C00AFCE83 /* AKTextField.m */; };
+		B9676C1A1977004C00AFCE83 /* NSString+StringSizeWithFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C131977004C00AFCE83 /* NSString+StringSizeWithFont.m */; };
 		B9EC363A193B797C0007C5FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC3639193B797C0007C5FF /* Foundation.framework */; };
 		B9EC363C193B797C0007C5FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC363B193B797C0007C5FF /* CoreGraphics.framework */; };
 		B9EC363E193B797C0007C5FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC363D193B797C0007C5FF /* UIKit.framework */; };
@@ -21,12 +27,6 @@
 		B9EC365B193B797C0007C5FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC363D193B797C0007C5FF /* UIKit.framework */; };
 		B9EC3663193B797C0007C5FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3661193B797C0007C5FF /* InfoPlist.strings */; };
 		B9EC3665193B797C0007C5FF /* AKTagsInputViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3664193B797C0007C5FF /* AKTagsInputViewExampleTests.m */; };
-		B9EC3679193B79FF0007C5FF /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3670193B79FF0007C5FF /* AKTagCell.m */; };
-		B9EC367A193B79FF0007C5FF /* AKTagTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3672193B79FF0007C5FF /* AKTagTextFieldCell.m */; };
-		B9EC367B193B79FF0007C5FF /* AKTagsInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3674193B79FF0007C5FF /* AKTagsInputView.m */; };
-		B9EC367C193B79FF0007C5FF /* AKTagsLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3676193B79FF0007C5FF /* AKTagsLookup.m */; };
-		B9EC367D193B79FF0007C5FF /* AKTagsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3678193B79FF0007C5FF /* AKTagsListView.m */; };
-		B9EC3680193B7A160007C5FF /* NSString+StringSizeWithFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC367F193B7A160007C5FF /* NSString+StringSizeWithFont.m */; };
 		B9EC3684193B7A9D0007C5FF /* cross_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3682193B7A9D0007C5FF /* cross_icon.png */; };
 		B9EC3685193B7A9D0007C5FF /* cross_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3683193B7A9D0007C5FF /* cross_icon@2x.png */; };
 		B9EC3688193B7AA70007C5FF /* cross_red_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3686193B7AA70007C5FF /* cross_red_icon.png */; };
@@ -44,8 +44,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B9622CEB193C882000DBF6F5 /* AKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTextField.h; sourceTree = "<group>"; };
-		B9622CEC193C882000DBF6F5 /* AKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTextField.m; sourceTree = "<group>"; };
+		B9676C051977004C00AFCE83 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
+		B9676C061977004C00AFCE83 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
+		B9676C071977004C00AFCE83 /* AKTagsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsDefines.h; sourceTree = "<group>"; };
+		B9676C081977004C00AFCE83 /* AKTagsInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsInputView.h; sourceTree = "<group>"; };
+		B9676C091977004C00AFCE83 /* AKTagsInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsInputView.m; sourceTree = "<group>"; };
+		B9676C0A1977004C00AFCE83 /* AKTagsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsListView.h; sourceTree = "<group>"; };
+		B9676C0B1977004C00AFCE83 /* AKTagsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsListView.m; sourceTree = "<group>"; };
+		B9676C0C1977004C00AFCE83 /* AKTagsLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsLookup.h; sourceTree = "<group>"; };
+		B9676C0D1977004C00AFCE83 /* AKTagsLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsLookup.m; sourceTree = "<group>"; };
+		B9676C0E1977004C00AFCE83 /* AKTagTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagTextFieldCell.h; sourceTree = "<group>"; };
+		B9676C0F1977004C00AFCE83 /* AKTagTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagTextFieldCell.m; sourceTree = "<group>"; };
+		B9676C101977004C00AFCE83 /* AKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTextField.h; sourceTree = "<group>"; };
+		B9676C111977004C00AFCE83 /* AKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTextField.m; sourceTree = "<group>"; };
+		B9676C121977004C00AFCE83 /* NSString+StringSizeWithFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSizeWithFont.h"; sourceTree = "<group>"; };
+		B9676C131977004C00AFCE83 /* NSString+StringSizeWithFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSizeWithFont.m"; sourceTree = "<group>"; };
 		B9EC3636193B797C0007C5FF /* AKTagsInputViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AKTagsInputViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EC3639193B797C0007C5FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B9EC363B193B797C0007C5FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -64,23 +77,10 @@
 		B9EC3660193B797C0007C5FF /* AKTagsInputViewExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AKTagsInputViewExampleTests-Info.plist"; sourceTree = "<group>"; };
 		B9EC3662193B797C0007C5FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B9EC3664193B797C0007C5FF /* AKTagsInputViewExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKTagsInputViewExampleTests.m; sourceTree = "<group>"; };
-		B9EC366F193B79FF0007C5FF /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
-		B9EC3670193B79FF0007C5FF /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
-		B9EC3671193B79FF0007C5FF /* AKTagTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagTextFieldCell.h; sourceTree = "<group>"; };
-		B9EC3672193B79FF0007C5FF /* AKTagTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagTextFieldCell.m; sourceTree = "<group>"; };
-		B9EC3673193B79FF0007C5FF /* AKTagsInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsInputView.h; sourceTree = "<group>"; };
-		B9EC3674193B79FF0007C5FF /* AKTagsInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsInputView.m; sourceTree = "<group>"; };
-		B9EC3675193B79FF0007C5FF /* AKTagsLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsLookup.h; sourceTree = "<group>"; };
-		B9EC3676193B79FF0007C5FF /* AKTagsLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsLookup.m; sourceTree = "<group>"; };
-		B9EC3677193B79FF0007C5FF /* AKTagsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsListView.h; sourceTree = "<group>"; };
-		B9EC3678193B79FF0007C5FF /* AKTagsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsListView.m; sourceTree = "<group>"; };
-		B9EC367E193B7A160007C5FF /* NSString+StringSizeWithFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSizeWithFont.h"; sourceTree = "<group>"; };
-		B9EC367F193B7A160007C5FF /* NSString+StringSizeWithFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSizeWithFont.m"; sourceTree = "<group>"; };
 		B9EC3682193B7A9D0007C5FF /* cross_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_icon.png; sourceTree = "<group>"; };
 		B9EC3683193B7A9D0007C5FF /* cross_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_icon@2x.png"; sourceTree = "<group>"; };
 		B9EC3686193B7AA70007C5FF /* cross_red_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_red_icon.png; sourceTree = "<group>"; };
 		B9EC3687193B7AA70007C5FF /* cross_red_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_red_icon@2x.png"; sourceTree = "<group>"; };
-		B9EC368A193B7B8F0007C5FF /* AKTagsDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKTagsDefines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,25 +183,25 @@
 		B9EC366E193B79BF0007C5FF /* AKTagsInputView */ = {
 			isa = PBXGroup;
 			children = (
+				B9676C051977004C00AFCE83 /* AKTagCell.h */,
+				B9676C061977004C00AFCE83 /* AKTagCell.m */,
+				B9676C071977004C00AFCE83 /* AKTagsDefines.h */,
+				B9676C081977004C00AFCE83 /* AKTagsInputView.h */,
+				B9676C091977004C00AFCE83 /* AKTagsInputView.m */,
+				B9676C0A1977004C00AFCE83 /* AKTagsListView.h */,
+				B9676C0B1977004C00AFCE83 /* AKTagsListView.m */,
+				B9676C0C1977004C00AFCE83 /* AKTagsLookup.h */,
+				B9676C0D1977004C00AFCE83 /* AKTagsLookup.m */,
+				B9676C0E1977004C00AFCE83 /* AKTagTextFieldCell.h */,
+				B9676C0F1977004C00AFCE83 /* AKTagTextFieldCell.m */,
+				B9676C101977004C00AFCE83 /* AKTextField.h */,
+				B9676C111977004C00AFCE83 /* AKTextField.m */,
+				B9676C121977004C00AFCE83 /* NSString+StringSizeWithFont.h */,
+				B9676C131977004C00AFCE83 /* NSString+StringSizeWithFont.m */,
 				B9EC3681193B7A5A0007C5FF /* Resources */,
-				B9EC367E193B7A160007C5FF /* NSString+StringSizeWithFont.h */,
-				B9EC367F193B7A160007C5FF /* NSString+StringSizeWithFont.m */,
-				B9EC366F193B79FF0007C5FF /* AKTagCell.h */,
-				B9EC3670193B79FF0007C5FF /* AKTagCell.m */,
-				B9EC3671193B79FF0007C5FF /* AKTagTextFieldCell.h */,
-				B9EC3672193B79FF0007C5FF /* AKTagTextFieldCell.m */,
-				B9EC3673193B79FF0007C5FF /* AKTagsInputView.h */,
-				B9EC3674193B79FF0007C5FF /* AKTagsInputView.m */,
-				B9EC3675193B79FF0007C5FF /* AKTagsLookup.h */,
-				B9EC3676193B79FF0007C5FF /* AKTagsLookup.m */,
-				B9EC3677193B79FF0007C5FF /* AKTagsListView.h */,
-				B9EC3678193B79FF0007C5FF /* AKTagsListView.m */,
-				B9EC368A193B7B8F0007C5FF /* AKTagsDefines.h */,
-				B9622CEB193C882000DBF6F5 /* AKTextField.h */,
-				B9622CEC193C882000DBF6F5 /* AKTextField.m */,
 			);
 			name = AKTagsInputView;
-			path = ../AKTagsInputView;
+			path = ../Classes;
 			sourceTree = "<group>";
 		};
 		B9EC3681193B7A5A0007C5FF /* Resources */ = {
@@ -212,7 +212,8 @@
 				B9EC3682193B7A9D0007C5FF /* cross_icon.png */,
 				B9EC3683193B7A9D0007C5FF /* cross_icon@2x.png */,
 			);
-			path = Resources;
+			name = Resources;
+			path = ../Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,16 +317,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9EC367A193B79FF0007C5FF /* AKTagTextFieldCell.m in Sources */,
+				B9676C181977004C00AFCE83 /* AKTagTextFieldCell.m in Sources */,
 				B9EC364A193B797C0007C5FF /* AKAppDelegate.m in Sources */,
+				B9676C161977004C00AFCE83 /* AKTagsListView.m in Sources */,
+				B9676C151977004C00AFCE83 /* AKTagsInputView.m in Sources */,
+				B9676C191977004C00AFCE83 /* AKTextField.m in Sources */,
 				B9EC3650193B797C0007C5FF /* AKViewController.m in Sources */,
-				B9EC3679193B79FF0007C5FF /* AKTagCell.m in Sources */,
-				B9EC367B193B79FF0007C5FF /* AKTagsInputView.m in Sources */,
-				B9622CED193C882000DBF6F5 /* AKTextField.m in Sources */,
-				B9EC367D193B79FF0007C5FF /* AKTagsListView.m in Sources */,
+				B9676C1A1977004C00AFCE83 /* NSString+StringSizeWithFont.m in Sources */,
+				B9676C141977004C00AFCE83 /* AKTagCell.m in Sources */,
 				B9EC3646193B797C0007C5FF /* main.m in Sources */,
-				B9EC3680193B7A160007C5FF /* NSString+StringSizeWithFont.m in Sources */,
-				B9EC367C193B79FF0007C5FF /* AKTagsLookup.m in Sources */,
+				B9676C171977004C00AFCE83 /* AKTagsLookup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +400,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -431,7 +432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
