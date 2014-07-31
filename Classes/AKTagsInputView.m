@@ -152,6 +152,10 @@
 }
 
 #pragma mark - Helpers
+-(void)clear
+{
+	self.selectedTags = [NSMutableArray array];
+}
 -(BOOL)tagNameIsValid:(NSString*)tagName
 {
 	NSString *textFieldTrimmedContent = [tagName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];

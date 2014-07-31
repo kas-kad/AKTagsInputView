@@ -24,9 +24,8 @@
  */
 @property (nonatomic, assign) BOOL separateTagsWithSpaceSymbol;
 
-/**
- 
- */
 @property (nonatomic, assign) BOOL enableTagsLookup;
 @property (nonatomic, strong) NSArray *lookupTags;
+
+-(void)clear;
 @end

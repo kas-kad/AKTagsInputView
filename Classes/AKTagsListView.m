@@ -94,6 +94,14 @@
 }
 
 #pragma mark - Helpers
+-(void)setSelectedTags:(NSMutableArray *)selectedTags
+{
+	_selectedTags = selectedTags;
+	
+	[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+	[self.collectionView.collectionViewLayout invalidateLayout];
+	[self.collectionView setCollectionViewLayout:self.collectionView.collectionViewLayout animated:YES];
+}
 -(NSString*)squashWhitespaces:(NSString*)string
 {
 	NSString *result = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
