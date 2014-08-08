@@ -114,8 +114,6 @@
 		8FB4D5591994D5F400703AB6 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				B9EC3648193B797C0007C5FF /* AKAppDelegate.h */,
-				B9EC3649193B797C0007C5FF /* AKAppDelegate.m */,
 				8FB4D5571994D5D600703AB6 /* Main.storyboard */,
 				B9EC364E193B797C0007C5FF /* AKViewController.h */,
 				B9EC364F193B797C0007C5FF /* AKViewController.m */,
@@ -168,6 +166,8 @@
 		B9EC3640193B797C0007C5FF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B9EC3648193B797C0007C5FF /* AKAppDelegate.h */,
+				B9EC3649193B797C0007C5FF /* AKAppDelegate.m */,
 				B9EC3641193B797C0007C5FF /* AKTagsInputViewExample-Info.plist */,
 				B9EC3642193B797C0007C5FF /* InfoPlist.strings */,
 				B9EC3645193B797C0007C5FF /* main.m */,

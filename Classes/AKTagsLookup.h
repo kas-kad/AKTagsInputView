@@ -16,6 +16,8 @@
 @interface AKTagsLookup : UIView
 
 @property (nonatomic, weak) id<AKTagsLookupDelegate> delegate;
+@property (strong, nonatomic) NSMutableArray *tagsBase;
+
 -(id)initWithTags:(NSArray*)tags;
 -(void)filterLookupWithPredicate:(NSPredicate*)predicate;
 

@@ -40,7 +40,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Evh-kE-toV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="3" id="fJy-1I-sw5">
+                <tapGestureRecognizer enabled="NO" id="fJy-1I-sw5">
                     <connections>
                         <action selector="tapAction:" destination="LBe-KH-Z7V" id="VQt-xg-Lxg"/>
                     </connections>

@@ -11,7 +11,7 @@
 @interface AKTagsLookup () <AKTagsListViewDelegate>
 
 @property (strong, nonatomic) AKTagsListView *tagsView;
-@property (strong, nonatomic) NSMutableArray *tagsBase;
+@property (copy, nonatomic) NSPredicate *predicate;
 
 @end
 
@@ -26,6 +26,7 @@
         // tags view
 		self.tagsView = [[AKTagsListView alloc] initWithFrame:self.bounds];
 		self.tagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
 		self.tagsView.selectedTags = [NSMutableArray arrayWithArray:tags];
 		self.tagsView.backgroundColor = [UIColor clearColor];
 		self.tagsView.collectionView.backgroundColor = [UIColor clearColor];
@@ -36,17 +37,33 @@
     return self;
 }
 
+- (void)setTagsBase:(NSMutableArray *)tagsBase
+{
+    _tagsBase = tagsBase;
+    
+    [self.tagsView.collectionView performBatchUpdates:^{
+		NSMutableArray *filteredTags = [[self.tagsBase filteredArrayUsingPredicate:self.predicate] mutableCopy];
+		self.tagsView.selectedTags = filteredTags;
+		[self.tagsView.collectionView reloadData];
+        
+	} completion:NULL];
+}
+
 -(void)filterLookupWithPredicate:(NSPredicate *)predicate
 {
+    self.predicate = predicate;
+    
 	[self.tagsView.collectionView performBatchUpdates:^{
-		NSMutableArray *filteredTags = [[self.tagsBase filteredArrayUsingPredicate:predicate] mutableCopy];
+		NSMutableArray *filteredTags = [[self.tagsBase filteredArrayUsingPredicate:self.predicate] mutableCopy];
 		self.tagsView.selectedTags = filteredTags;
-		[self.tagsView.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+		[self.tagsView.collectionView reloadData];
 
 	} completion:NULL];
 }
 
--(void)tagsListView:(AKTagsListView *)tagsView didSelectTag:(NSString *)tag atIndexPath:(NSIndexPath *)indexPath
+-(void)tagsListView:(AKTagsListView *)tagsView
+       didSelectTag:(NSString *)tag
+        atIndexPath:(NSIndexPath *)indexPath
 {
 	if ([self.delegate respondsToSelector:@selector(tagsLookup:didSelectTag:)]){
 		[self.delegate tagsLookup:self didSelectTag:tag];

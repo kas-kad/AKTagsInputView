@@ -20,6 +20,8 @@ NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
 
 @implementation AKTagsInputView
 
+@synthesize lookupTags = _lookupTags;
+
 #pragma mark - Init -
 
 -(id)initWithFrame:(CGRect)frame
@@ -44,7 +46,7 @@ NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
     self.forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
     [self.collectionView registerClass:[AKTagTextFieldCell class]
             forCellWithReuseIdentifier:TextFieldCellReuseIdentifier];
-
+    
     [self addSubview:self.collectionView];
 }
 
@@ -58,16 +60,37 @@ NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
     return _lookupTags;
 }
 
+-(void)setLookupTags:(NSArray *)lookupTags
+{
+    _lookupTags = lookupTags;
+    if (self.enableTagsLookup) {
+        self.lookup.tagsBase = [_lookupTags mutableCopy];
+    }
+}
+
+- (void)setEnableTagsLookup:(BOOL)enableTagsLookup
+{
+    _enableTagsLookup = enableTagsLookup;
+    [self lookup];
+}
+
+- (void)setTextFieldCell:(AKTagTextFieldCell *)textFieldCell
+{
+    _textFieldCell = textFieldCell;
+    [self lookup];
+}
+
 -(AKTagsLookup *)lookup
 {
     if (!_lookup) {
-        if (self.enableTagsLookup){
-            _lookup = [[AKTagsLookup alloc] initWithTags:self.lookupTags];
-            _lookup.delegate = self;
-            [_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
-            self.textFieldCell.textField.inputAccessoryView = _lookup;
-        }
+        _lookup = [[AKTagsLookup alloc] initWithTags:self.lookupTags];
+        _lookup.delegate = self;
     }
+    if (self.enableTagsLookup){
+        [_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
+        self.textFieldCell.textField.inputAccessoryView = _lookup;
+    }
+
     return _lookup;
 }
 
@@ -106,14 +129,14 @@ NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row == self.selectedTags.count){
-		if (!_textFieldCell){
+		if (!self.textFieldCell){
             // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
-			_textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:TextFieldCellReuseIdentifier
+			self.textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:TextFieldCellReuseIdentifier
                                                                        forIndexPath:indexPath];
-			_textFieldCell.textField.delegate = self;
+			self.textFieldCell.textField.delegate = self;
 			
 		}
-		return _textFieldCell;
+		return self.textFieldCell;
 	} else {
 		return [super collectionView:collectionView
               cellForItemAtIndexPath:indexPath];
@@ -177,7 +200,7 @@ NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
 		[self.lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags
                                                           andFilterByString: newText]];
 	} else {
-		[self.lookup filterLookupWithPredicate:[self predicateExcludingTags: self.selectedTags]];
+		[self.lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
 	}
 	return YES;
 }
@@ -200,6 +223,11 @@ NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
 -(BOOL)becomeFirstResponder
 {
 	return [self.textFieldCell.textField becomeFirstResponder];
+}
+
+- (BOOL)resignFirstResponder
+{
+    return [self.textFieldCell.textField resignFirstResponder];
 }
 
 #pragma mark - Helpers
