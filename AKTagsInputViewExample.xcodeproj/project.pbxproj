@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F10C43E1994F000009E9112 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F10C43D1994F000009E9112 /* README.md */; };
 		8FB4D5581994D5D600703AB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FB4D5571994D5D600703AB6 /* Main.storyboard */; };
 		B9676C141977004C00AFCE83 /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C061977004C00AFCE83 /* AKTagCell.m */; };
 		B9676C151977004C00AFCE83 /* AKTagsInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C091977004C00AFCE83 /* AKTagsInputView.m */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F10C43D1994F000009E9112 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		8FB4D5571994D5D600703AB6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B9676C051977004C00AFCE83 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
 		B9676C061977004C00AFCE83 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		B9EC362D193B797C0007C5FF = {
 			isa = PBXGroup;
 			children = (
+				8F10C43D1994F000009E9112 /* README.md */,
 				B9EC363F193B797C0007C5FF /* AKTagsInputViewExample */,
 				B9EC365E193B797C0007C5FF /* AKTagsInputViewExampleTests */,
 				B9EC3638193B797C0007C5FF /* Frameworks */,
@@ -310,6 +313,7 @@
 				B9EC3652193B797C0007C5FF /* Images.xcassets in Resources */,
 				B9EC3684193B7A9D0007C5FF /* cross_icon.png in Resources */,
 				B9EC3689193B7AA70007C5FF /* cross_red_icon@2x.png in Resources */,
+				8F10C43E1994F000009E9112 /* README.md in Resources */,
 				B9EC3644193B797C0007C5FF /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
