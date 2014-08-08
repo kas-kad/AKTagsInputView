@@ -9,10 +9,10 @@
 #import "AKTagsListView.h"
 
 @interface AKTagsLookup () <AKTagsListViewDelegate>
-{
-	AKTagsListView *_tagsView;
-	NSMutableArray *_tagsBase;
-}
+
+@property (strong, nonatomic) AKTagsListView *tagsView;
+@property (strong, nonatomic) NSMutableArray *tagsBase;
+
 @end
 
 @implementation AKTagsLookup
@@ -21,34 +21,33 @@
 {
     self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 44)];
     if (self) {
-		_tagsBase = [NSMutableArray arrayWithArray:tags];
-		_tagsView = [[AKTagsListView alloc] initWithFrame:self.bounds];
-		_tagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		_tagsView.selectedTags = [NSMutableArray arrayWithArray:tags];
-		_tagsView.backgroundColor = [UIColor clearColor];
-		_tagsView.collectionView.backgroundColor = [UIColor clearColor];
-		_tagsView.delegate = self;
+		self.tagsBase = [NSMutableArray arrayWithArray:tags];
+        
+        // tags view
+		self.tagsView = [[AKTagsListView alloc] initWithFrame:self.bounds];
+		self.tagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		self.tagsView.selectedTags = [NSMutableArray arrayWithArray:tags];
+		self.tagsView.backgroundColor = [UIColor clearColor];
+		self.tagsView.collectionView.backgroundColor = [UIColor clearColor];
+		self.tagsView.delegate = self;
 		self.backgroundColor = [UIColor clearColor];
-		[self addSubview:_tagsView];
+		[self addSubview:self.tagsView];
     }
     return self;
 }
 
 -(void)filterLookupWithPredicate:(NSPredicate *)predicate
 {
-	[_tagsView.collectionView performBatchUpdates:^{
-		NSMutableArray *filteredTags = [[_tagsBase filteredArrayUsingPredicate:predicate] mutableCopy];
-		_tagsView.selectedTags = filteredTags;
-		[_tagsView.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+	[self.tagsView.collectionView performBatchUpdates:^{
+		NSMutableArray *filteredTags = [[self.tagsBase filteredArrayUsingPredicate:predicate] mutableCopy];
+		self.tagsView.selectedTags = filteredTags;
+		[self.tagsView.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
 
-	} completion:^(BOOL finished) {
-		
-	}];
+	} completion:NULL];
 }
 
 -(void)tagsListView:(AKTagsListView *)tagsView didSelectTag:(NSString *)tag atIndexPath:(NSIndexPath *)indexPath
 {
-//	[_tagsView deleteItemAt:indexPath];
 	if ([self.delegate respondsToSelector:@selector(tagsLookup:didSelectTag:)]){
 		[self.delegate tagsLookup:self didSelectTag:tag];
 	}

@@ -13,9 +13,9 @@
 
 
 @interface AKTagCell ()
-{
-	BOOL isAvailableForDelete;
-}
+
+@property (nonatomic) BOOL isAvailableForDelete;
+
 @end
 
 @implementation AKTagCell
@@ -24,19 +24,33 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-		self.backgroundColor = WK_COLOR_GRAY_244;
-		self.layer.cornerRadius = 3;
-		self.clipsToBounds = YES;
-        
-		_tagLabel = [[UILabel alloc] initWithFrame:self.bounds];
-		_tagLabel.frame = UIEdgeInsetsInsetRect(_tagLabel.frame, UIEdgeInsetsMake(0, TAG_CELL_PADDING, 0, TAG_CELL_PADDING));
-		_tagLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-		_tagLabel.font = TAG_CELL_FONT;
-		_tagLabel.textColor = WK_COLOR_GRAY_77;
-	
-		[self addSubview:_tagLabel];
+        [self setup];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
+    self.backgroundColor = WK_COLOR_GRAY_244;
+    self.layer.cornerRadius = 3;
+    self.clipsToBounds = YES;
+    
+    self.tagLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    self.tagLabel.frame = UIEdgeInsetsInsetRect(self.tagLabel.frame, UIEdgeInsetsMake(0, TAG_CELL_PADDING, 0, TAG_CELL_PADDING));
+    self.tagLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.tagLabel.font = TAG_CELL_FONT;
+    self.tagLabel.textColor = WK_COLOR_GRAY_77;
+	
+    [self addSubview:self.tagLabel];
 }
 
 -(void)setShowDeleteButton:(BOOL)showDeleteButton
@@ -45,6 +59,12 @@
 	if (_showDeleteButton){
 		[self addSubview:[self deleteButton]];
 	}
+}
+
+-(void)setTagName:(NSString *)tagName
+{
+	_tagName = tagName;
+	_tagLabel.text = _tagName;
 }
 
 -(void)setSelected:(BOOL)selected
@@ -70,13 +90,7 @@
 
 -(void)deleteButtonPressed:(id)sender
 {
-	[_delegate tagCellDidPressedDelete:self];
-}
-
--(void)setTagName:(NSString *)tagName
-{
-	_tagName = tagName;
-	_tagLabel.text = _tagName;
+	[self.delegate tagCellDidPressedDelete:self];
 }
 
 +(CGSize)preferredSizeWithTag:(NSString*)tag deleteButtonEnabled:(BOOL)deleteButtonEnabled

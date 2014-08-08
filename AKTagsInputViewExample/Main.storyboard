@@ -30,12 +30,21 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="fJy-1I-sw5" appends="YES" id="1CT-Lh-2y5"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="tagsInputView" destination="HMT-OB-I4z" id="QQy-2X-qQG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Evh-kE-toV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="3" id="fJy-1I-sw5">
+                    <connections>
+                        <action selector="tapAction:" destination="LBe-KH-Z7V" id="VQt-xg-Lxg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="504" y="138"/>
         </scene>

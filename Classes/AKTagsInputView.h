@@ -28,4 +28,7 @@
 @property (nonatomic, strong) NSArray *lookupTags;
 
 -(void)clear;
+
 @end
+
+extern NSString *const TextFieldCellReuseIdentifier;

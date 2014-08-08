@@ -9,6 +9,8 @@
 #import "AKTagTextFieldCell.h"
 #import "AKTagsLookup.h"
 
+NSString *const TextFieldCellReuseIdentifier = @"textFieldCell";
+
 @interface AKTagsInputView () <UITextFieldDelegate, AKTagsLookupDelegate>
 
 @property (nonatomic, strong) AKTagsLookup *lookup;
@@ -17,6 +19,8 @@
 @end
 
 @implementation AKTagsInputView
+
+#pragma mark - Init -
 
 -(id)initWithFrame:(CGRect)frame
 {
@@ -28,16 +32,30 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithCoder:aDecoder];
-    [self setup];
+    if(self = [super initWithCoder:aDecoder]){
+        [self setup];
+    }
     return self;
 }
 
 - (void)setup
 {
     self.allowDeleteTags = YES;
-    _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
-    [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
+    self.forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
+    [self.collectionView registerClass:[AKTagTextFieldCell class]
+            forCellWithReuseIdentifier:TextFieldCellReuseIdentifier];
+
+    [self addSubview:self.collectionView];
+}
+
+#pragma mark - Lookup -
+
+-(NSArray *)lookupTags
+{
+    if (!_lookupTags) {
+        _lookupTags = @[];
+    }
+    return _lookupTags;
 }
 
 -(AKTagsLookup *)lookup
@@ -74,7 +92,8 @@
     numberOfItemsInSection:(NSInteger)section
 {
 	// +1 extra cell for the textFieldCell
-	return [super collectionView:collectionView numberOfItemsInSection:section] + 1;
+    NSInteger count = [super collectionView:collectionView numberOfItemsInSection:section];
+	return (count + 1);
 }
 
 -(void)configureCell:(AKTagCell*)cell atIndexPath:(NSIndexPath*)indexPath
@@ -87,14 +106,17 @@
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row == self.selectedTags.count){
-		if (!_textFieldCell){ // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
-			_textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textFieldCell" forIndexPath:indexPath];
+		if (!_textFieldCell){
+            // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
+			_textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:TextFieldCellReuseIdentifier
+                                                                       forIndexPath:indexPath];
 			_textFieldCell.textField.delegate = self;
 			
 		}
-		return self.textFieldCell;
+		return _textFieldCell;
 	} else {
-		return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+		return [super collectionView:collectionView
+              cellForItemAtIndexPath:indexPath];
 	}
 }
 
@@ -103,7 +125,8 @@
 -(void)tagsLookup:(AKTagsLookup *)lookup
      didSelectTag:(NSString *)tag
 {
-	[self addNewItemWithString:tag completion:nil];
+	[self addNewItemWithString:tag
+                    completion:nil];
 	self.textFieldCell.textField.text = nil;
 }
 
@@ -112,12 +135,12 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	if ([self tagNameIsValid:textField.text]){
-		[self addNewItemWithString:textField.text completion:nil];
+		[self addNewItemWithString:textField.text
+                        completion:nil];
 		textField.text = nil;
 	} else {
 		[textField resignFirstResponder];
 	}
-
 	return YES;
 }
 
@@ -127,7 +150,7 @@
 	if ([string isEqualToString:@""]){
 		isSpace = YES;
 	}
-	
+
 	if (!isSpace){
 		NSCharacterSet *forbiddenCharSet  = [NSCharacterSet characterSetWithCharactersInString:_forbiddenCharsString];
 		string = [string stringByTrimmingCharactersInSet:forbiddenCharSet];
@@ -188,7 +211,7 @@
 
 -(BOOL)tagNameIsValid:(NSString*)tagName
 {
-	NSString *textFieldTrimmedContent = [tagName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+	NSString *textFieldTrimmedContent = [tagName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	return (textFieldTrimmedContent.length > 0);
 }
 

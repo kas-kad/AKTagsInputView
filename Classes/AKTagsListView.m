@@ -8,13 +8,22 @@
 #import "AKTagsListView.h"
 #import "NSString+StringSizeWithFont.h"
 
+NSString *const TagsViewCellReuseIdentifier = @"tagsViewCell";
+
+@interface AKTagsListView ()
+
+@end
+
 @implementation AKTagsListView
+
+@synthesize selectedTags = _selectedTags;
+
+#pragma mark - Init -
 
 - (id)initWithFrame:(CGRect)frame
 {
 	frame.size.height = 44;
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame]) {
         [self setup];
     }
     return self;
@@ -22,8 +31,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self = [super initWithCoder:aDecoder]) {
         [self setup];
     }
     return self;
@@ -32,8 +40,9 @@
 - (void)setup
 {
     [self addSubview:self.collectionView];
-    _selectedTags = [NSMutableArray array];
 }
+
+#pragma mark -
 
 -(UICollectionView*)collectionView
 {
@@ -47,12 +56,13 @@
 		_collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flow];
 		_collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 		_collectionView.dataSource = self;
-		_collectionView.backgroundColor = [UIColor whiteColor];
+		_collectionView.backgroundColor = [UIColor clearColor];
 		_collectionView.allowsMultipleSelection = NO;
 		_collectionView.delegate = self;
 		_collectionView.showsHorizontalScrollIndicator = NO;
 		_collectionView.showsVerticalScrollIndicator = NO;
-		[_collectionView registerClass:[AKTagCell class] forCellWithReuseIdentifier:@"tagsViewCell"];
+		[_collectionView registerClass:[AKTagCell class]
+            forCellWithReuseIdentifier:TagsViewCellReuseIdentifier];
 	}
 	return _collectionView;
 }
@@ -67,15 +77,19 @@
 
 #pragma mark - CV Layout
 
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                       layout:(UICollectionViewLayout*)collectionViewLayout
+       insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(0, CONTENT_LEFT_MARGIN, 0, 0);
 }
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+-(CGSize)collectionView:(UICollectionView *)collectionView
+                 layout:(UICollectionViewLayout *)collectionViewLayout
+ sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"row = %d of %ld",indexPath.row,(long)self.selectedTags.count);
-	return [AKTagCell preferredSizeWithTag:self.selectedTags[indexPath.row] deleteButtonEnabled:self.allowDeleteTags];
+	return [AKTagCell preferredSizeWithTag:self.selectedTags[indexPath.row]
+                       deleteButtonEnabled:self.allowDeleteTags];
 }
 
 #pragma mark - CV Delegate
@@ -88,14 +102,18 @@
 }
 
 #pragma mark - CV Datasource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
 {
 	return self.selectedTags.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	AKTagCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tagsViewCell" forIndexPath:indexPath];
+	AKTagCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TagsViewCellReuseIdentifier
+                                                                forIndexPath:indexPath];
 	cell.tagName = self.selectedTags[indexPath.row];
 	cell.delegate = self;
 	cell.showDeleteButton = self.allowDeleteTags;
@@ -112,14 +130,26 @@
 }
 
 #pragma mark - Helpers
+
+- (NSMutableArray *)selectedTags
+{
+    if (!_selectedTags) {
+        _selectedTags = [NSMutableArray array];
+    }
+    return _selectedTags;
+}
+
 -(void)setSelectedTags:(NSMutableArray *)selectedTags
 {
 	_selectedTags = selectedTags;
 	
-	[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-	[self.collectionView.collectionViewLayout invalidateLayout];
-	[self.collectionView setCollectionViewLayout:self.collectionView.collectionViewLayout animated:YES];
+//	[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+//	[self.collectionView.collectionViewLayout invalidateLayout];
+//	[self.collectionView setCollectionViewLayout:self.collectionView.collectionViewLayout
+//                                        animated:YES];
+    [self.collectionView reloadData];
 }
+
 -(NSString*)squashWhitespaces:(NSString*)string
 {
 	NSString *result = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -135,7 +165,8 @@
 	CGFloat contentXOffset = (self.collectionView.contentSize.width - width);
 	contentXOffset = MAX(contentXOffset + [AKTagCell preferredSizeWithTag:string deleteButtonEnabled:_allowDeleteTags].width, 0);
 	CGPoint offset = CGPointMake(contentXOffset, 0);
-	[self.collectionView setContentOffset:offset animated:YES];
+	[self.collectionView setContentOffset:offset
+                                 animated:YES];
 }
 
 - (void)addNewItemWithString:(NSString *)string completion:(void(^)(BOOL finished))compeltion
@@ -155,7 +186,7 @@
 	});
 }
 
-- (void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(BOOL finish))completion
+- (void)deleteItemAt:(NSIndexPath *)indexPath completion:(void(^)(BOOL finish))completion
 {
 	[self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
 	[self.collectionView performBatchUpdates:^{

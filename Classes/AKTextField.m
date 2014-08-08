@@ -8,43 +8,63 @@
 #import "AKTextField.h"
 #import "NSString+StringSizeWithFont.h"
 
-@implementation AKTextField{
-	BOOL _shouldDrawPlaceholder;
+@interface AKTextField ()
+
+@property (nonatomic) BOOL shouldDrawPlaceholder;
+
+@end
+
+@implementation AKTextField
+
+#pragma mark - Init -
+
+-(id)init
+{
+	return nil; //do not allow this
 }
 
--(id)init{
-	if (self = [super init]){
-		[self _initialize];
-	}
-	return self;
-}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self _initialize];
+        [self setup];
     }
     return self;
 }
 
-- (void)_initialize {
-	self.buttonPlaceholderColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
-	_shouldDrawPlaceholder = NO;
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
 }
 
--(BOOL)becomeFirstResponder{
+- (void)setup
+{
+	self.buttonPlaceholderColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+	self.shouldDrawPlaceholder = NO;
+}
+
+#pragma mark -
+
+-(BOOL)becomeFirstResponder
+{
 	BOOL result = [super becomeFirstResponder];
 	[self _updateShouldDrawPlaceholder];
 	return result;
 }
 
--(BOOL)resignFirstResponder{
+-(BOOL)resignFirstResponder
+{
 	BOOL result = [super resignFirstResponder];
 	[self _updateShouldDrawPlaceholder];
 	return result;
 }
 
-- (void)setButtonPlaceholder:(NSString *)str{
+- (void)setButtonPlaceholder:(NSString *)str
+{
 	if ([str isEqual:_buttonPlaceholder]) {
 		return;
 	}
@@ -52,18 +72,20 @@
 	[self _updateShouldDrawPlaceholder];
 }
 
-- (void)_updateShouldDrawPlaceholder {
-	BOOL prev = _shouldDrawPlaceholder;
-	_shouldDrawPlaceholder = !self.isFirstResponder;
-	if (prev != _shouldDrawPlaceholder) {
+- (void)_updateShouldDrawPlaceholder
+{
+	BOOL prev = self.shouldDrawPlaceholder;
+	self.shouldDrawPlaceholder = !self.isFirstResponder;
+	if (prev != self.shouldDrawPlaceholder) {
 		[self setNeedsDisplay];
 	}
 }
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
 	[super drawRect:rect];
 	
-	if (_shouldDrawPlaceholder) {
+	if (self.shouldDrawPlaceholder) {
 		CGSize stringSize = [self.buttonPlaceholder sizeWithMyFont: self.font];
 		CGFloat stringWidth = stringSize.width;
 		CGFloat stringHeigth = stringSize.height;
@@ -71,7 +93,7 @@
 		[self.buttonPlaceholder drawInRect:stringRect withMyFont:self.font myColor:_buttonPlaceholderColor];
 		
 		CGContextRef context = UIGraphicsGetCurrentContext();
-		CGContextSetStrokeColorWithColor(context, _buttonPlaceholderColor.CGColor);
+		CGContextSetStrokeColorWithColor(context, self.buttonPlaceholderColor.CGColor);
 		CGContextSetLineWidth(context, 1);
 		CGFloat dashLengths[] = { 5, 3 };
 		CGContextSetLineDash(context, 0, dashLengths, 2);

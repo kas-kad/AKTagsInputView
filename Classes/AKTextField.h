@@ -5,9 +5,9 @@
 //  Copyright (c) 2014 Andrey Kadochnikov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface AKTextField : UITextField
+
 @property (nonatomic, strong) NSString *buttonPlaceholder;
 @property (nonatomic, strong) UIColor *buttonPlaceholderColor;
+
 @end

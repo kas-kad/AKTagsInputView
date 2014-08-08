@@ -5,23 +5,19 @@
 //  Copyright (c) 2014 Andrey Kadochnikov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "AKTagCell.h"
 
 #define CONTENT_LEFT_MARGIN 15.0f
 
 @class AKTagsListView;
+
 @protocol AKTagsListViewDelegate <NSObject>
 -(void)tagsListView:(AKTagsListView*)tagsView didSelectTag:(NSString*)tag atIndexPath:(NSIndexPath*)indexPath;
+
 @end
 
-@interface AKTagsListView : UIView
-<
-AKTagCellDelegate,
-UICollectionViewDelegate,
-UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout
->
+@interface AKTagsListView : UIView  <AKTagCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
 @property (nonatomic, weak) id<AKTagsListViewDelegate> delegate;
 
 /**
@@ -39,4 +35,7 @@ UICollectionViewDelegateFlowLayout
 -(void)addNewItemWithString:(NSString *)string completion:(void(^)(BOOL finish))completion;
 -(void)configureCell:(UICollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
 -(void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(BOOL finish))completion;
+
 @end
+
+extern NSString *const TagsViewCellReuseIdentifier;
