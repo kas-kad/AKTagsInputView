@@ -10,25 +10,25 @@
 #import "AKViewController.h"
 
 @interface AKViewController ()
-{
-	AKTagsInputView *_tagsInputView;
-}
+
+@property (weak, nonatomic) IBOutlet AKTagsInputView *tagsInputView;
+
 @end
 
 @implementation AKViewController
 
 #pragma mark - This is what you are looking for:
--(AKTagsInputView*)createTagsInputView
+
+- (void)setTagsInputView:(AKTagsInputView *)tagsInputView
 {
-	_tagsInputView = [[AKTagsInputView alloc] initWithFrame:CGRectMake(0, 80.0f, CGRectGetWidth(self.view.bounds), 44.0f)];
+    _tagsInputView = tagsInputView;
+    
 	_tagsInputView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	_tagsInputView.lookupTags = @[@"ios", @"iphone", @"objective-c", @"development", @"cocoa", @"xcode", @"icloud"];
 	_tagsInputView.selectedTags = [NSMutableArray arrayWithArray:@[@"some", @"predefined", @"tags"]];
 	_tagsInputView.enableTagsLookup = YES;
-
-	
-	return _tagsInputView;
 }
+
 -(void)btnPressed:(id)sender
 {
 	[[[UIAlertView alloc] initWithTitle:@"Selected tags" message:[_tagsInputView.selectedTags componentsJoinedByString:@", "] delegate:nil cancelButtonTitle:@"Nice!" otherButtonTitles: nil] show];
@@ -44,7 +44,6 @@
     [super viewDidLoad];
 	self.view.backgroundColor = WK_COLOR(200, 200, 200, 1);
 	[self.view addSubview:[self createLabel]];
-	[self.view addSubview:[self createTagsInputView]];
 	[self.view addSubview:[self createButton]];
 	[self.view addSubview:[self clearButton]];
 }

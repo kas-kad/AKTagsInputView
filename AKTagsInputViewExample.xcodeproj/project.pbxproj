@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8FB4D5581994D5D600703AB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FB4D5571994D5D600703AB6 /* Main.storyboard */; };
 		B9676C141977004C00AFCE83 /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C061977004C00AFCE83 /* AKTagCell.m */; };
 		B9676C151977004C00AFCE83 /* AKTagsInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C091977004C00AFCE83 /* AKTagsInputView.m */; };
 		B9676C161977004C00AFCE83 /* AKTagsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C0B1977004C00AFCE83 /* AKTagsListView.m */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8FB4D5571994D5D600703AB6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B9676C051977004C00AFCE83 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
 		B9676C061977004C00AFCE83 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
 		B9676C071977004C00AFCE83 /* AKTagsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsDefines.h; sourceTree = "<group>"; };
@@ -107,6 +109,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8FB4D5591994D5F400703AB6 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				B9EC3648193B797C0007C5FF /* AKAppDelegate.h */,
+				B9EC3649193B797C0007C5FF /* AKAppDelegate.m */,
+				8FB4D5571994D5D600703AB6 /* Main.storyboard */,
+				B9EC364E193B797C0007C5FF /* AKViewController.h */,
+				B9EC364F193B797C0007C5FF /* AKViewController.m */,
+				B9EC3651193B797C0007C5FF /* Images.xcassets */,
+			);
+			name = Example;
+			sourceTree = "<group>";
+		};
 		B9EC362D193B797C0007C5FF = {
 			isa = PBXGroup;
 			children = (
@@ -141,11 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				B9EC366E193B79BF0007C5FF /* AKTagsInputView */,
-				B9EC3648193B797C0007C5FF /* AKAppDelegate.h */,
-				B9EC3649193B797C0007C5FF /* AKAppDelegate.m */,
-				B9EC364E193B797C0007C5FF /* AKViewController.h */,
-				B9EC364F193B797C0007C5FF /* AKViewController.m */,
-				B9EC3651193B797C0007C5FF /* Images.xcassets */,
+				8FB4D5591994D5F400703AB6 /* Example */,
 				B9EC3640193B797C0007C5FF /* Supporting Files */,
 			);
 			path = AKTagsInputViewExample;
@@ -183,9 +194,9 @@
 		B9EC366E193B79BF0007C5FF /* AKTagsInputView */ = {
 			isa = PBXGroup;
 			children = (
+				B9676C071977004C00AFCE83 /* AKTagsDefines.h */,
 				B9676C051977004C00AFCE83 /* AKTagCell.h */,
 				B9676C061977004C00AFCE83 /* AKTagCell.m */,
-				B9676C071977004C00AFCE83 /* AKTagsDefines.h */,
 				B9676C081977004C00AFCE83 /* AKTagsInputView.h */,
 				B9676C091977004C00AFCE83 /* AKTagsInputView.m */,
 				B9676C0A1977004C00AFCE83 /* AKTagsListView.h */,
@@ -293,6 +304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FB4D5581994D5D600703AB6 /* Main.storyboard in Resources */,
 				B9EC3685193B7A9D0007C5FF /* cross_icon@2x.png in Resources */,
 				B9EC3688193B7AA70007C5FF /* cross_red_icon.png in Resources */,
 				B9EC3652193B797C0007C5FF /* Images.xcassets in Resources */,
@@ -447,6 +459,7 @@
 				GCC_PREFIX_HEADER = "AKTagsInputViewExample/AKTagsInputViewExample-Prefix.pch";
 				INFOPLIST_FILE = "AKTagsInputViewExample/AKTagsInputViewExample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -460,6 +473,7 @@
 				GCC_PREFIX_HEADER = "AKTagsInputViewExample/AKTagsInputViewExample-Prefix.pch";
 				INFOPLIST_FILE = "AKTagsInputViewExample/AKTagsInputViewExample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

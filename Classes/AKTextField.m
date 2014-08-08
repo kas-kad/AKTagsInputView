@@ -37,6 +37,7 @@
 	[self _updateShouldDrawPlaceholder];
 	return result;
 }
+
 -(BOOL)resignFirstResponder{
 	BOOL result = [super resignFirstResponder];
 	[self _updateShouldDrawPlaceholder];

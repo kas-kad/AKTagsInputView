@@ -15,10 +15,24 @@
 	frame.size.height = 44;
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.collectionView];
-		_selectedTags = [NSMutableArray array];
+        [self setup];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
+    [self addSubview:self.collectionView];
+    _selectedTags = [NSMutableArray array];
 }
 
 -(UICollectionView*)collectionView
@@ -44,6 +58,7 @@
 }
 
 #pragma mark - Cell delegate
+
 -(void)tagCellDidPressedDelete:(AKTagCell *)cell
 {
 	NSIndexPath *indexPath = [_collectionView indexPathForCell:cell];
@@ -51,6 +66,7 @@
 }
 
 #pragma mark - CV Layout
+
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(0, CONTENT_LEFT_MARGIN, 0, 0);
@@ -58,10 +74,12 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"row = %d of %ld",indexPath.row,(long)self.selectedTags.count);
 	return [AKTagCell preferredSizeWithTag:self.selectedTags[indexPath.row] deleteButtonEnabled:self.allowDeleteTags];
 }
 
 #pragma mark - CV Delegate
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if ([self.delegate respondsToSelector:@selector(tagsListView:didSelectTag:atIndexPath:)]){

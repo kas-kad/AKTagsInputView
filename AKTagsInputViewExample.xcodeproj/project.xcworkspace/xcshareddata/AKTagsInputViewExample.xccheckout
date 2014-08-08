@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>8EFC0331-89B6-4001-B983-26EF84479244</string>
+	<string>A89B84C9-410D-427D-A6B2-155880DA6120</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AKTagsInputViewExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</key>
-		<string>https://github.com/purrrminator/AKTagsInputView.git</string>
+		<key>073CD574-DE9B-428C-AA86-33C8E8E496B7</key>
+		<string>https://github.com/appleios/AKTagsInputView</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>AKTagsInputViewExample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</key>
+		<key>073CD574-DE9B-428C-AA86-33C8E8E496B7</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/purrrminator/AKTagsInputView.git</string>
+	<string>https://github.com/appleios/AKTagsInputView</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</string>
+	<string>073CD574-DE9B-428C-AA86-33C8E8E496B7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</string>
+			<string>073CD574-DE9B-428C-AA86-33C8E8E496B7</string>
 			<key>IDESourceControlWCCName</key>
-			<string>AKTagsInputViewExample</string>
+			<string>AKTagsInputView</string>
 		</dict>
 	</array>
 </dict>

@@ -7,11 +7,15 @@
 
 #import <UIKit/UIKit.h>
 @class AKTagCell;
+
 @protocol AKTagCellDelegate <NSObject>
+
 -(void)tagCellDidPressedDelete:(AKTagCell*)cell;
+
 @end
 
 @interface AKTagCell : UICollectionViewCell
+
 @property (nonatomic, strong) UIButton *deleteButton;
 @property (nonatomic, strong) UILabel *tagLabel;
 @property (nonatomic, strong) NSString *tagName;
@@ -19,4 +23,5 @@
 @property (nonatomic, weak) id <AKTagCellDelegate> delegate;
 
 +(CGSize)preferredSizeWithTag:(NSString*)tag deleteButtonEnabled:(BOOL)deleteButtonEnabled;
+
 @end

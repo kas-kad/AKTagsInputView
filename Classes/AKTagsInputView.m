@@ -9,15 +9,11 @@
 #import "AKTagTextFieldCell.h"
 #import "AKTagsLookup.h"
 
-@interface AKTagsInputView ()
-<
-	UITextFieldDelegate,
-	AKTagsLookupDelegate
->
-{
-	AKTagTextFieldCell *_textFieldCell;
-	AKTagsLookup *_lookup;
-}
+@interface AKTagsInputView () <UITextFieldDelegate, AKTagsLookupDelegate>
+
+@property (nonatomic, strong) AKTagsLookup *lookup;
+@property (nonatomic, strong) AKTagTextFieldCell *textFieldCell;
+
 @end
 
 @implementation AKTagsInputView
@@ -25,25 +21,57 @@
 -(id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]){
-		self.allowDeleteTags = YES;
-		_forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
-		[self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
+        [self setup];
 	}
 	return self;
 }
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    [self setup];
+    return self;
+}
+
+- (void)setup
+{
+    self.allowDeleteTags = YES;
+    _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
+    [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
+}
+
+-(AKTagsLookup *)lookup
+{
+    if (!_lookup) {
+        if (self.enableTagsLookup){
+            _lookup = [[AKTagsLookup alloc] initWithTags:self.lookupTags];
+            _lookup.delegate = self;
+            [_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
+            self.textFieldCell.textField.inputAccessoryView = _lookup;
+        }
+    }
+    return _lookup;
+}
+
 #pragma mark - CV Layout
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+
+-(CGSize)collectionView:(UICollectionView *)collectionView
+                 layout:(UICollectionViewLayout *)collectionViewLayout
+ sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row == self.selectedTags.count){
 		return CGSizeMake(CGRectGetWidth(self.collectionView.bounds)/2, CGRectGetHeight(self.bounds));
 	} else {
-		return [super collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+		return [super collectionView:collectionView
+                              layout:collectionViewLayout
+              sizeForItemAtIndexPath:indexPath];
 	}
 }
 
 #pragma mark - CV Datasource
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView
+    numberOfItemsInSection:(NSInteger)section
 {
 	// +1 extra cell for the textFieldCell
 	return [super collectionView:collectionView numberOfItemsInSection:section] + 1;
@@ -55,34 +83,32 @@
 	cell.tagLabel.textColor = [UIColor blackColor];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row == self.selectedTags.count){
 		if (!_textFieldCell){ // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
 			_textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textFieldCell" forIndexPath:indexPath];
 			_textFieldCell.textField.delegate = self;
 			
-			if (_enableTagsLookup){
-				_lookup = [[AKTagsLookup alloc] initWithTags:_lookupTags];
-				_lookup.delegate = self;
-				[_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
-				_textFieldCell.textField.inputAccessoryView = _lookup;
-			}
 		}
-		return _textFieldCell;
+		return self.textFieldCell;
 	} else {
 		return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
 	}
 }
 
 #pragma mark - tags lookup delegate
--(void)tagsLookup:(AKTagsLookup *)lookup didSelectTag:(NSString *)tag
+
+-(void)tagsLookup:(AKTagsLookup *)lookup
+     didSelectTag:(NSString *)tag
 {
 	[self addNewItemWithString:tag completion:nil];
-	_textFieldCell.textField.text = nil;
+	self.textFieldCell.textField.text = nil;
 }
 
 #pragma mark - textFieldCell's delegate
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	if ([self tagNameIsValid:textField.text]){
@@ -125,45 +151,51 @@
 
 	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
 	if (newText.length > 0){
-		[_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags andFilterByString: newText]];
+		[self.lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags
+                                                          andFilterByString: newText]];
 	} else {
-		[_lookup filterLookupWithPredicate: [self predicateExcludingTags: self.selectedTags]];
+		[self.lookup filterLookupWithPredicate:[self predicateExcludingTags: self.selectedTags]];
 	}
 	return YES;
 }
 
 #pragma mark - Overridden
+
 -(void)addNewItemWithString:(NSString *)string completion:(void (^)(BOOL))completion
 {
-	[_lookup filterLookupWithPredicate: [self predicateExcludingTags: [self.selectedTags arrayByAddingObject:string]]];
+	[self.lookup filterLookupWithPredicate:[self predicateExcludingTags:[self.selectedTags arrayByAddingObject:string]]];
 	[super addNewItemWithString:string completion:completion];
 }
 
 - (void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(BOOL finish))completion
 {
 	[super deleteItemAt:indexPath completion:^(BOOL finish) {
-		[_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags]];
+		[self.lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
 	}];
 }
 
 -(BOOL)becomeFirstResponder
 {
-	return [_textFieldCell.textField becomeFirstResponder];
+	return [self.textFieldCell.textField becomeFirstResponder];
 }
 
 #pragma mark - Helpers
+
 -(void)clear
 {
 	self.selectedTags = [NSMutableArray array];
 }
+
 -(BOOL)tagNameIsValid:(NSString*)tagName
 {
 	NSString *textFieldTrimmedContent = [tagName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
 	return (textFieldTrimmedContent.length > 0);
 }
+
 -(NSPredicate*)predicateExcludingTags:(NSArray*)tagsToExclude andFilterByString:(NSString*)string
 {
-	return [NSCompoundPredicate andPredicateWithSubpredicates:@[[self predicateExcludingTags:tagsToExclude], [NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", string]]];
+	return [NSCompoundPredicate andPredicateWithSubpredicates:@[[self predicateExcludingTags:tagsToExclude],
+                                                                [NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", string]]];
 }
 
 -(NSPredicate*)predicateExcludingTags:(NSArray*)tagsToExclude
