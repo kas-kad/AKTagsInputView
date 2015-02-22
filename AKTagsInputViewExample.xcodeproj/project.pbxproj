@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		502817EF1A99EF8600304109 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B9676C051977004C00AFCE83 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
 		B9676C061977004C00AFCE83 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
 		B9676C071977004C00AFCE83 /* AKTagsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsDefines.h; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 				B9676C121977004C00AFCE83 /* NSString+StringSizeWithFont.h */,
 				B9676C131977004C00AFCE83 /* NSString+StringSizeWithFont.m */,
 				B9EC3681193B7A5A0007C5FF /* Resources */,
+				502817EF1A99EF8600304109 /* Constants.h */,
 			);
 			name = AKTagsInputView;
 			path = ../Classes;

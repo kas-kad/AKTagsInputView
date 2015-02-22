@@ -7,6 +7,7 @@
 
 #import "AKTextField.h"
 #import "NSString+StringSizeWithFont.h"
+#import "Constants.h"
 
 @implementation AKTextField{
 	BOOL _shouldDrawPlaceholder;
@@ -76,6 +77,16 @@
 		CGContextSetLineDash(context, 0, dashLengths, 2);
 		CGContextStrokeRect(context, CGRectMake(1, 6, 8 + stringWidth + 8, 22));
 	}
+}
+
+-(NSString *)tagName
+{
+    NSMutableString *mutableText = self.text.mutableCopy;
+    if ([self.text rangeOfString:ZWWS].location != NSNotFound){
+        NSRange ZWWSRange = [self.text rangeOfString:ZWWS];
+        [mutableText deleteCharactersInRange:ZWWSRange];
+    }
+    return [NSString stringWithString:mutableText];
 }
 
 @end

@@ -10,4 +10,5 @@
 @interface AKTextField : UITextField
 @property (nonatomic, strong) NSString *buttonPlaceholder;
 @property (nonatomic, strong) UIColor *buttonPlaceholderColor;
+@property (nonatomic, readonly) NSString *tagName;
 @end

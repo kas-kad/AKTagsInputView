@@ -8,8 +8,19 @@
 #import "AKTagsListView.h"
 #define DEFAULT_FORBIDDEN_CHARS_STRING (@"!$%^&*+.") // these chars are standart hashtags forbidden ones, but I'd allow 'space' char
 
+@class AKTagsInputView;
+@protocol AKTagsInputViewDelegate <AKTagsListViewDelegate>
+@optional
+-(BOOL)validateTag:(NSString*)tagName;
+-(void)tagsInputViewDidBeginEditing:(AKTagsInputView*)inputView;
+-(void)tagsInputViewDidEndEditing:(AKTagsInputView*)inputView;
+-(void)tagsInputViewDidAddTag:(AKTagsInputView*)inputView;
+-(void)tagsInputViewDidRemoveTag:(AKTagsInputView*)inputView;
+@end
+
 @interface AKTagsInputView : AKTagsListView
 
+@property (nonatomic, weak) id<AKTagsInputViewDelegate> delegate;
 /**
  Forbidden chars are defined by default charstring: '!$%^&*+.' Which are default for hashtag standart.
  But unlike the standart the 'space' symbol is allowed to use in tags name.

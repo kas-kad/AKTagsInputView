@@ -1,22 +1,20 @@
 //
 //  AKTagsInputView.m
+//  handmash
 //
 //  Created by Andrey Kadochnikov on 30.05.14.
 //  Copyright (c) 2014 Andrey Kadochnikov. All rights reserved.
 //
-#import "AKTagsDefines.h"
+
 #import "AKTagsInputView.h"
 #import "AKTagTextFieldCell.h"
 #import "AKTagsLookup.h"
+#import "Constants.h"
 
-@interface AKTagsInputView ()
-<
-	UITextFieldDelegate,
-	AKTagsLookupDelegate
->
+@interface AKTagsInputView () <UITextFieldDelegate, AKTagsLookupDelegate>
 {
-	AKTagTextFieldCell *_textFieldCell;
-	AKTagsLookup *_lookup;
+    AKTagTextFieldCell *_textFieldCell;
+    AKTagsLookup *_lookup;
 }
 @end
 
@@ -24,147 +22,248 @@
 
 -(id)initWithFrame:(CGRect)frame
 {
-	if (self = [super initWithFrame:frame]){
-		self.allowDeleteTags = YES;
-		_forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
-		[self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
-	}
-	return self;
+    if (self = [super initWithFrame:frame]){
+        self.allowDeleteTags = YES;
+        _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
+        [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
+    }
+    return self;
 }
 
 #pragma mark - CV Layout
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == self.selectedTags.count){
-		return CGSizeMake(CGRectGetWidth(self.collectionView.bounds)/2, CGRectGetHeight(self.bounds));
-	} else {
-		return [super collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
-	}
+    if (indexPath.row == self.selectedTags.count){
+        return CGSizeMake(CGRectGetWidth(self.collectionView.bounds)/2, CGRectGetHeight(self.bounds));
+    } else {
+        return [super collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark - CV Datasource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	// +1 extra cell for the textFieldCell
-	return [super collectionView:collectionView numberOfItemsInSection:section] + 1;
+    // +1 extra cell for the textFieldCell
+    return [super collectionView:collectionView numberOfItemsInSection:section] + 1;
 }
 
--(void)configureCell:(AKTagCell*)cell atIndexPath:(NSIndexPath*)indexPath
+-(void)configureCell:(UICollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
-	cell.backgroundColor = WK_COLOR_GREED_COLOR;
-	cell.tagLabel.textColor = [UIColor blackColor];
+    // empty implementation for default gray-style cell's look
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == self.selectedTags.count){
-		if (!_textFieldCell){ // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
-			_textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textFieldCell" forIndexPath:indexPath];
-			_textFieldCell.textField.delegate = self;
-			
-			if (_enableTagsLookup){
-				_lookup = [[AKTagsLookup alloc] initWithTags:_lookupTags];
-				_lookup.delegate = self;
-				[_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
-				_textFieldCell.textField.inputAccessoryView = _lookup;
-			}
-		}
-		return _textFieldCell;
-	} else {
-		return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-	}
+    if (indexPath.row == self.selectedTags.count){
+        if (!_textFieldCell){ // I don't want my CV to nullify my textFieldCell's content while reusing cells, I store the cell in memory
+            _textFieldCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textFieldCell" forIndexPath:indexPath];
+            _textFieldCell.textField.delegate = self;
+            if (_enableTagsLookup){
+                _lookup = [[AKTagsLookup alloc] initWithTags:_lookupTags];
+                _lookup.delegate = self;
+                [_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
+                _textFieldCell.textField.inputAccessoryView = _lookup;
+            }
+        }
+        return _textFieldCell;
+    } else {
+        return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark - tags lookup delegate
 -(void)tagsLookup:(AKTagsLookup *)lookup didSelectTag:(NSString *)tag
 {
-	[self addNewItemWithString:tag completion:nil];
-	_textFieldCell.textField.text = nil;
+    [self addNewItemWithString:tag completion:nil];
 }
 
 #pragma mark - textFieldCell's delegate
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+-(void)textFieldDidBeginEditing:(AKTextField *)textField
 {
-	if ([self tagNameIsValid:textField.text]){
-		[self addNewItemWithString:textField.text completion:nil];
-		textField.text = nil;
-	} else {
-		[textField resignFirstResponder];
-	}
-
-	return YES;
+    [self restoreZWWSIfNeeded:textField];
+    if ([self.delegate respondsToSelector:@selector(tagsInputViewDidBeginEditing:)]){
+        [self.delegate tagsInputViewDidBeginEditing:self];
+    }
+}
+-(void)textFieldDidEndEditing:(AKTextField *)textField
+{
+    if ([self canInsertNewTagName:textField.text]){
+        [self addNewItemWithString:textField.tagName completion:nil];
+    }
+    textField.text = nil;
+    if ([self.delegate respondsToSelector:@selector(tagsInputViewDidEndEditing:)]){
+        [self.delegate tagsInputViewDidEndEditing:self];
+    }
+}
+-(BOOL)canInsertNewTagName:(NSString *)tagName
+{
+    tagName = [self trimmedString:tagName];
+    if ([self tagNameIsNotEmpty:tagName]){
+        return YES;
+    } else {
+        return NO;
+    }
+}
+-(BOOL)textFieldShouldReturn:(AKTextField *)textField
+{
+    if ([self canInsertNewTagName:textField.text]){
+        [self addNewItemWithString:textField.tagName completion:nil];
+    }
+    return YES;
 }
 
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (void)restoreZWWSIfNeeded:(AKTextField *)textField
 {
-	BOOL isSpace = NO;
-	if ([string isEqualToString:@""]){
-		isSpace = YES;
-	}
-	
-	if (!isSpace){
-		NSCharacterSet *forbiddenCharSet  = [NSCharacterSet characterSetWithCharactersInString:_forbiddenCharsString];
-		string = [string stringByTrimmingCharactersInSet:forbiddenCharSet];
-		
-		if (string.length == 0){
-			textField.backgroundColor = [UIColor redColor];
-			[UIView animateWithDuration:0.3f animations:^{
-				textField.backgroundColor = [UIColor whiteColor];
-			}];
-			return NO;
-		}
-		
-		if ([string isEqualToString:@","] || (_separateTagsWithSpaceSymbol && [string isEqualToString:@" "])){
-			if ([self tagNameIsValid:(textField.text)]){
-				[self addNewItemWithString:textField.text completion:nil];
-				textField.text = nil;
-			}
-			return NO;
-		}
-	}
-
-	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-	if (newText.length > 0){
-		[_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags andFilterByString: newText]];
-	} else {
-		[_lookup filterLookupWithPredicate: [self predicateExcludingTags: self.selectedTags]];
-	}
-	return YES;
+    if ([textField.text rangeOfString:ZWWS].location == NSNotFound){
+        textField.text = [NSString stringWithFormat:@"%@%@", ZWWS, textField.tagName];
+    }
 }
 
-#pragma mark - Overridden
--(void)addNewItemWithString:(NSString *)string completion:(void (^)(BOOL))completion
+-(BOOL)textField:(AKTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-	[_lookup filterLookupWithPredicate: [self predicateExcludingTags: [self.selectedTags arrayByAddingObject:string]]];
-	[super addNewItemWithString:string completion:completion];
+    BOOL isBackSpace = NO;
+    AKTagCell *lastTagCell;
+    if (self.selectedTags.count){
+        lastTagCell = (AKTagCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedTags.count-1 inSection:0]];
+    }
+    if ([string isEqualToString:@""]){
+        isBackSpace = YES;
+        
+        if ([textField.text rangeOfString:ZWWS].location == 0 && textField.text.length == 1 && self.selectedTags.count){
+            if (!lastTagCell.isReadyForDelete) {
+                [lastTagCell prepareForDelete];
+                return NO;
+            } else {
+                [self deleteItemAt:[NSIndexPath indexPathForRow:self.selectedTags.count-1 inSection:0] completion:nil];
+                return NO;
+            }
+        }
+    }
+    
+    if (!isBackSpace){
+        [lastTagCell resetReadyForDeleteStatus];
+        NSCharacterSet *forbiddenCharSet  = [NSCharacterSet characterSetWithCharactersInString:_forbiddenCharsString];
+        string = [string stringByTrimmingCharactersInSet:forbiddenCharSet];
+        
+        if (string.length == 0){
+            textField.backgroundColor = [UIColor redColor];
+            [UIView animateWithDuration:0.3f animations:^{
+                textField.backgroundColor = [UIColor whiteColor];
+            }];
+            return NO;
+        }
+        
+        if ([string isEqualToString:@","] || (_separateTagsWithSpaceSymbol && [string isEqualToString:@" "])){
+            if ([self canInsertNewTagName:textField.tagName]){
+                [self addNewItemWithString:textField.tagName completion:nil];
+            }
+            return NO;
+        }
+    }
+    
+    NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSMutableString *mutableText = [newText mutableCopy];
+    if ([newText rangeOfString:ZWWS].location != NSNotFound){
+        NSRange ZWWSRange = [newText rangeOfString:ZWWS];
+        [mutableText deleteCharactersInRange:ZWWSRange];
+    }
+    newText = [NSString stringWithString:mutableText];
+    if (newText.length > 0){
+        [_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags andFilterByString: newText]];
+    } else {
+        [_lookup filterLookupWithPredicate: [self predicateExcludingTags: self.selectedTags]];
+    }
+    
+    [self restoreZWWSIfNeeded:textField];
+    
+    return YES;
 }
 
-- (void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(BOOL finish))completion
+-(BOOL)isFirstResponder
 {
-	[super deleteItemAt:indexPath completion:^(BOOL finish) {
-		[_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags]];
-	}];
+    return _textFieldCell.isFirstResponder;
 }
-
+-(BOOL)resignFirstResponder
+{
+    return [_textFieldCell resignFirstResponder];
+}
 -(BOOL)becomeFirstResponder
 {
-	return [_textFieldCell.textField becomeFirstResponder];
+    return [_textFieldCell becomeFirstResponder];
+}
+#pragma mark - Overridden
+-(void)addNewItemWithString:(NSString *)string completion:(void (^)(void))completion
+{
+    [_lookup filterLookupWithPredicate: [self predicateExcludingTags: [self.selectedTags arrayByAddingObject:string]]];
+    
+    _textFieldCell.textField.text = nil;
+    __weak typeof(_textFieldCell) weakCell = _textFieldCell;
+    __weak typeof(self) weakSelf = self;
+    [super addNewItemWithString:string completion:^{
+        
+        [weakSelf restoreZWWSIfNeeded:weakCell.textField];
+        
+        if (completion){
+            completion();
+        }
+    }];
+    if ([self.delegate respondsToSelector:@selector(tagsInputViewDidAddTag:)]){
+        [self.delegate tagsInputViewDidAddTag:self];
+    }
+}
+
+- (void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void (^)(void))completion
+{
+    __weak typeof(_textFieldCell) weakCell = _textFieldCell;
+    __weak typeof(self) weakSelf = self;
+    [super deleteItemAt:indexPath completion:^{
+        
+        [weakSelf restoreZWWSIfNeeded:weakCell.textField];
+        
+        if (completion){
+            completion();
+        }
+        [_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags]];
+    }];
+    if ([self.delegate respondsToSelector:@selector(tagsInputViewDidRemoveTag:)]){
+        [self.delegate tagsInputViewDidRemoveTag:self];
+    }
 }
 
 #pragma mark - Helpers
+-(void)setSelectedTags:(NSMutableArray *)selectedTags
+{
+    [super setSelectedTags:selectedTags];
+}
+-(NSString *)trimmedString:(NSString *)str
+{
+    return [str stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+}
+-(BOOL)tagNameIsNotEmpty:(NSString*)tagName
+{
+    NSString *textFieldTrimmedContent = [self trimmedString:tagName];
+    return textFieldTrimmedContent.length > 0;
+}
 -(BOOL)tagNameIsValid:(NSString*)tagName
 {
-	NSString *textFieldTrimmedContent = [tagName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-	return (textFieldTrimmedContent.length > 0);
+    if (![self tagNameIsNotEmpty:tagName]){
+        return NO;
+    }
+    BOOL isValid = NO;
+    if ([self.delegate respondsToSelector:@selector(validateTag:)]){
+        isValid = [self.delegate validateTag:tagName];
+    }
+    return isValid;
 }
+
 -(NSPredicate*)predicateExcludingTags:(NSArray*)tagsToExclude andFilterByString:(NSString*)string
 {
-	return [NSCompoundPredicate andPredicateWithSubpredicates:@[[self predicateExcludingTags:tagsToExclude], [NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", string]]];
+    return [NSCompoundPredicate andPredicateWithSubpredicates:@[[self predicateExcludingTags:tagsToExclude], [NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", string]]];
 }
 
 -(NSPredicate*)predicateExcludingTags:(NSArray*)tagsToExclude
 {
-	return [NSPredicate predicateWithFormat:@"NOT(self IN %@)", tagsToExclude];
+    return [NSPredicate predicateWithFormat:@"NOT(self IN %@)", tagsToExclude];
 }
 
 @end

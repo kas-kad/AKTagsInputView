@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, assign) BOOL showDeleteButton;
 @property (nonatomic, weak) id <AKTagCellDelegate> delegate;
-
+@property (nonatomic, readonly) BOOL isReadyForDelete;
+-(void)prepareForDelete;
+-(void)resetReadyForDeleteStatus;
 +(CGSize)preferredSizeWithTag:(NSString*)tag deleteButtonEnabled:(BOOL)deleteButtonEnabled;
 @end

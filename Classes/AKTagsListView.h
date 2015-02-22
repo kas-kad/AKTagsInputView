@@ -36,7 +36,7 @@ UICollectionViewDelegateFlowLayout
  */
 @property (nonatomic, strong) NSMutableArray *selectedTags;
 
--(void)addNewItemWithString:(NSString *)string completion:(void(^)(BOOL finish))completion;
+-(void)addNewItemWithString:(NSString *)string completion:(void(^)(void))completion;
 -(void)configureCell:(UICollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
--(void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(BOOL finish))completion;
+-(void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(void))completion;
 @end

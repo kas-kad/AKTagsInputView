@@ -112,31 +112,41 @@
 	[self.collectionView setContentOffset:offset animated:YES];
 }
 
-- (void)addNewItemWithString:(NSString *)string completion:(void(^)(BOOL finished))compeltion
+- (void)addNewItemWithString:(NSString *)string completion:(void(^)(void))compeltion
 {
-	[self scrollListInsertingItem:string];
-	
-	// this is a workaround of a big problem when CV resigns first responder while dequeue cells.
-	// so that my textfield cell may become to unwanted state and get into an UI mess
-	// I have to insert new cells only having textfield cell visible, so first I scroll to it and only after that
-	// I insert new item
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[self.collectionView performBatchUpdates:^{
-			NSString *squashedString = [self squashWhitespaces:string];
-			[self.selectedTags addObject:squashedString];
-			[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.selectedTags.count-1 inSection:0]]];
-		} completion:compeltion];
-	});
+    NSString *squashedString = [self squashWhitespaces:string];
+    [self.selectedTags addObject:squashedString];
+    
+    [self scrollListInsertingItem:string];
+    
+    // this is a workaround of a big problem when CV resigns first responder while dequeue cells.
+    // so that my textfield cell may become to unwanted state and get into an UI mess
+    // I have to insert new cells only having textfield cell visible, so first I scroll to it and only after that
+    // I insert new item
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.collectionView performBatchUpdates:^{
+            
+            [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.selectedTags.count-1 inSection:0]]];
+        } completion:^(BOOL finished) {
+            if (compeltion){
+                compeltion();
+            }
+        }];
+    });
 }
 
-- (void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(BOOL finish))completion
+- (void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(void))completion
 {
 	[self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
 	[self.collectionView performBatchUpdates:^{
 		NSArray* itemPaths = @[indexPath];
 		[self deleteItemsFromDataSourceAtIndexPaths:itemPaths];
 		[self.collectionView deleteItemsAtIndexPaths:itemPaths];
-	} completion:completion];
+    } completion: ^(BOOL finished){
+        if (completion){
+            completion();
+        }
+    }];
 }
 
 -(void)deleteItemsFromDataSourceAtIndexPaths:(NSArray*)ipaths

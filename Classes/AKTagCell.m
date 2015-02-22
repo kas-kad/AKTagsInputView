@@ -46,11 +46,26 @@
 		[self addSubview:[self deleteButton]];
 	}
 }
-
+-(void)resetReadyForDeleteStatus
+{
+    _deleteButton.enabled = NO;
+}
+-(BOOL)isReadyForDelete
+{
+    return _deleteButton.enabled;
+}
+-(void)prepareForDelete
+{
+    _deleteButton.enabled = YES;
+}
 -(void)setSelected:(BOOL)selected
 {
 	[super setSelected:selected];
-	_deleteButton.enabled = selected;
+    if (selected){
+        [self prepareForDelete];
+    } else {
+        [self resetReadyForDeleteStatus];
+    }
 }
 
 -(UIButton *)deleteButton
