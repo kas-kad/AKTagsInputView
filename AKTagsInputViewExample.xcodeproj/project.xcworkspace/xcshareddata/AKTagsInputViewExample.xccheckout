@@ -10,29 +10,29 @@
 	<string>AKTagsInputViewExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</key>
+		<key>7CC85E6ACDC6E2910020B6A909DB9FA0791A46E2</key>
 		<string>https://github.com/purrrminator/AKTagsInputView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>AKTagsInputViewExample.xcodeproj/project.xcworkspace</string>
+	<string>AKTagsInputViewExample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</key>
+		<key>7CC85E6ACDC6E2910020B6A909DB9FA0791A46E2</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/purrrminator/AKTagsInputView.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</string>
+	<string>7CC85E6ACDC6E2910020B6A909DB9FA0791A46E2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CF4D4D2B-6E4B-4D6C-A443-6A9EB4358DA2</string>
+			<string>7CC85E6ACDC6E2910020B6A909DB9FA0791A46E2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AKTagsInputViewExample</string>
 		</dict>

@@ -25,7 +25,6 @@
 	_tagsInputView.lookupTags = @[@"ios", @"iphone", @"objective-c", @"development", @"cocoa", @"xcode", @"icloud"];
 	_tagsInputView.selectedTags = [NSMutableArray arrayWithArray:@[@"some", @"predefined", @"tags"]];
 	_tagsInputView.enableTagsLookup = YES;
-//	_tagsInputView.placeholder = @"+ Add";
 	return _tagsInputView;
 }
 -(void)btnPressed:(id)sender
