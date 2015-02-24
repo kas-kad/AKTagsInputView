@@ -141,7 +141,9 @@
     }
     
     if (!isBackSpace){
-        [lastTagCell resetReadyForDeleteStatus];
+        if ([lastTagCell respondsToSelector:@selector(resetReadyForDeleteStatus)]) {
+            [lastTagCell resetReadyForDeleteStatus];
+        }
         NSCharacterSet *forbiddenCharSet  = [NSCharacterSet characterSetWithCharactersInString:_forbiddenCharsString];
         string = [string stringByTrimmingCharactersInSet:forbiddenCharSet];
         
