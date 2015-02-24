@@ -16,6 +16,7 @@
     AKTagTextFieldCell *_textFieldCell;
     AKTagsLookup *_lookup;
 }
+@property (nonatomic, assign) BOOL insertingInProgress;
 @end
 
 @implementation AKTagsInputView
@@ -24,6 +25,7 @@
 {
     if (self = [super initWithFrame:frame]){
         self.allowDeleteTags = YES;
+        _insertingInProgress = NO;
         _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
         [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
     }
@@ -121,6 +123,9 @@
 
 -(BOOL)textField:(AKTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    if (self.insertingInProgress){
+        return NO;
+    }
     BOOL isBackSpace = NO;
     AKTagCell *lastTagCell;
     if (self.selectedTags.count){
@@ -194,15 +199,15 @@
 #pragma mark - Overridden
 -(void)addNewItemWithString:(NSString *)string completion:(void (^)(void))completion
 {
+    self.insertingInProgress = YES;
     [_lookup filterLookupWithPredicate: [self predicateExcludingTags: [self.selectedTags arrayByAddingObject:string]]];
     
     _textFieldCell.textField.text = nil;
     __weak typeof(_textFieldCell) weakCell = _textFieldCell;
     __weak typeof(self) weakSelf = self;
     [super addNewItemWithString:string completion:^{
-        
         [weakSelf restoreZWWSIfNeeded:weakCell.textField];
-        
+        weakSelf.insertingInProgress = NO;
         if (completion){
             completion();
         }
