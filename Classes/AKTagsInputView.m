@@ -36,7 +36,10 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == self.selectedTags.count){
-        return CGSizeMake(CGRectGetWidth(self.collectionView.bounds)/2, CGRectGetHeight(self.bounds));
+        if([self.selectedTags count] == 0) //There is only want so we want it to appear at the begginin to in the middle
+            return CGSizeMake(CGRectGetWidth(self.collectionView.bounds) - 10, /*CGRectGetHeight(self.bounds)*/44.0f);
+        else
+            return CGSizeMake(CGRectGetWidth(self.collectionView.bounds)/2, /*CGRectGetHeight(self.bounds)*/44.0f);
     } else {
         return [super collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
     }

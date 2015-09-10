@@ -36,6 +36,11 @@ UICollectionViewDelegateFlowLayout
  */
 @property (nonatomic, strong) NSMutableArray *selectedTags;
 
+/*
+ Property to change the scrollDirection of the collectionview
+ */
+@property (nonatomic) UICollectionViewScrollDirection scrollDirection;
+
 -(void)addNewItemWithString:(NSString *)string completion:(void(^)(void))completion;
 -(void)configureCell:(UICollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
 -(void)deleteItemAt:(NSIndexPath *)indexPath  completion:(void(^)(void))completion;

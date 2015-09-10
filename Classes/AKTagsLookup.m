@@ -19,16 +19,21 @@
 
 -(id)initWithTags:(NSArray *)tags
 {
-    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 44)];
+    
+    //int height = (IS_IPAD)?44:144;
+    int height = 144;
+    
+    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), height)];
     if (self) {
-		_tagsBase = [NSMutableArray arrayWithArray:tags];
-		_tagsView = [[AKTagsListView alloc] initWithFrame:self.bounds];
-		_tagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		_tagsView.selectedTags = [NSMutableArray arrayWithArray:tags];
-		_tagsView.backgroundColor = [UIColor clearColor];
+		_tagsBase                   = [NSMutableArray arrayWithArray:tags];
+		_tagsView                   = [[AKTagsListView alloc] initWithFrame:self.bounds];
+        _tagsView.scrollDirection   = UICollectionViewScrollDirectionVertical;
+		_tagsView.autoresizingMask  = UIViewAutoresizingFlexibleWidth;        
+		_tagsView.selectedTags      = [NSMutableArray arrayWithArray:tags];
+		_tagsView.backgroundColor   = [UIColor clearColor];
 		_tagsView.collectionView.backgroundColor = [UIColor clearColor];
-		_tagsView.delegate = self;
-		self.backgroundColor = [UIColor clearColor];
+		_tagsView.delegate          = self;
+		self.backgroundColor        = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1];
 		[self addSubview:_tagsView];
     }
     return self;

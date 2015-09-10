@@ -21,6 +21,7 @@
 }
 - (id)initWithFrame:(CGRect)frame
 {
+    frame.size.height = 44.0f;
     self = [super initWithFrame:frame];
     if (self) {
         [self _initialize];
@@ -64,13 +65,13 @@
 	[super drawRect:rect];
 	
 	if (_shouldDrawPlaceholder) {
-		CGSize stringSize = [self.buttonPlaceholder sizeWithMyFont: self.font];
-		CGFloat stringWidth = stringSize.width;
-		CGFloat stringHeigth = stringSize.height;
-		CGRect stringRect = CGRectMake(8, CGRectGetMidY(rect) - stringHeigth/2, stringWidth, stringHeigth);
+		CGSize stringSize       = [self.buttonPlaceholder sizeWithMyFont: self.font];
+		CGFloat stringWidth     = stringSize.width;
+		CGFloat stringHeigth    = stringSize.height;
+		CGRect stringRect       = CGRectMake(8, CGRectGetMidY(rect) - stringHeigth/2, stringWidth, stringHeigth);
 		[self.buttonPlaceholder drawInRect:stringRect withMyFont:self.font myColor:_buttonPlaceholderColor];
 		
-		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextRef context    = UIGraphicsGetCurrentContext();
 		CGContextSetStrokeColorWithColor(context, _buttonPlaceholderColor.CGColor);
 		CGContextSetLineWidth(context, 1);
 		CGFloat dashLengths[] = { 5, 3 };
