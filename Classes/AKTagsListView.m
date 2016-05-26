@@ -7,10 +7,11 @@
 #import "AKTagsDefines.h"
 #import "AKTagsListView.h"
 #import "NSString+StringSizeWithFont.h"
+#import "AKTagsLayoutManager.h"
 
 @implementation AKTagsListView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
 	frame.size.height = 44;
     self = [super initWithFrame:frame];
@@ -87,10 +88,10 @@
 
 -(void)configureCell:(AKTagCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
-	cell.backgroundColor = WK_COLOR_RED_TAG_COLOR;
-	cell.tagLabel.textColor = [UIColor whiteColor];
-	cell.layer.borderWidth = 1;
-	cell.layer.borderColor = WK_COLOR_DARK_RED_TAG_COLOR.CGColor;
+	cell.backgroundColor = [AKTagsLayoutManager sharedManager].tagSuggestionBackgroundColor;
+	cell.tagLabel.textColor = [AKTagsLayoutManager sharedManager].tagSuggestionTextColor;
+	cell.layer.borderWidth = [AKTagsLayoutManager sharedManager].tagSuggestionBorderWidth;
+	cell.layer.borderColor = [AKTagsLayoutManager sharedManager].tagSuggestionBorderColor.CGColor;
 }
 
 #pragma mark - Helpers

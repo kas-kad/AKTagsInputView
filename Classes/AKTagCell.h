@@ -6,18 +6,17 @@
 //
 
 #import <UIKit/UIKit.h>
-@class AKTagCell;
-@protocol AKTagCellDelegate <NSObject>
--(void)tagCellDidPressedDelete:(AKTagCell*)cell;
-@end
+#import "AKTagCellDelegate.h"
 
 @interface AKTagCell : UICollectionViewCell
+
 @property (nonatomic, strong) UIButton *deleteButton;
 @property (nonatomic, strong) UILabel *tagLabel;
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, assign) BOOL showDeleteButton;
 @property (nonatomic, weak) id <AKTagCellDelegate> delegate;
 @property (nonatomic, readonly) BOOL isReadyForDelete;
+
 -(void)prepareForDelete;
 -(void)resetReadyForDeleteStatus;
 +(CGSize)preferredSizeWithTag:(NSString*)tag deleteButtonEnabled:(BOOL)deleteButtonEnabled;

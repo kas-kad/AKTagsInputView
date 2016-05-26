@@ -9,6 +9,7 @@
 #import "AKTagsInputView.h"
 #import "AKTagTextFieldCell.h"
 #import "AKTagsLookup.h"
+#import "AKTagsLayoutManager.h"
 #import "Constants.h"
 
 @interface AKTagsInputView () <UITextFieldDelegate, AKTagsLookupDelegate>
@@ -17,19 +18,36 @@
     AKTagsLookup *_lookup;
 }
 @property (nonatomic, assign) BOOL insertingInProgress;
+@property (nonatomic, readwrite) AKTagsLayoutManager *layoutManager;
+
 @end
 
 @implementation AKTagsInputView
 
--(id)initWithFrame:(CGRect)frame
+-(instancetype) initWithFrame: (CGRect) frame
 {
     if (self = [super initWithFrame:frame]){
         self.allowDeleteTags = YES;
         _insertingInProgress = NO;
         _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
         [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
+        [self initLayout];
     }
     return self;
+}
+
+- (void) awakeFromNib
+{
+    self.allowDeleteTags = YES;
+    _insertingInProgress = NO;
+    _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
+    [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
+    [self initLayout];
+}
+
+- (void) initLayout
+{
+    self.layoutManager = [AKTagsLayoutManager sharedManager];
 }
 
 #pragma mark - CV Layout
@@ -111,6 +129,9 @@
     if ([self canInsertNewTagName:textField.text]){
         [self addNewItemWithString:textField.tagName completion:nil];
     }
+    [self.collectionView setContentOffset: CGPointZero
+                                 animated: YES];
+    [textField resignFirstResponder];
     return YES;
 }
 
@@ -238,8 +259,32 @@
 #pragma mark - Helpers
 -(void)setSelectedTags:(NSMutableArray *)selectedTags
 {
-    [super setSelectedTags:selectedTags];
+    if ([selectedTags isKindOfClass: [NSMutableArray class]])
+    {
+        [super setSelectedTags:selectedTags];
+    }
+    else
+    {
+        @throw [NSException exceptionWithName: @"AKWrongParametersException"
+                                       reason: @"selectedTags must be a mutable array"
+                                     userInfo: nil];
+    }
 }
+
+
+-(void) setLookupTags: (NSArray *) lookupTags
+{
+    _lookupTags = lookupTags;
+    if (_enableTagsLookup)
+    {
+        _lookup = [[AKTagsLookup alloc] initWithTags:_lookupTags];
+        _lookup.delegate = self;
+        [_lookup filterLookupWithPredicate:[self predicateExcludingTags:self.selectedTags]];
+        _textFieldCell.textField.inputAccessoryView = _lookup;
+    }
+    
+}
+
 -(NSString *)trimmedString:(NSString *)str
 {
     return [str stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];

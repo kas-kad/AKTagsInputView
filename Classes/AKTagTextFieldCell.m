@@ -8,7 +8,7 @@
 #import "AKTagTextFieldCell.h"
 @implementation AKTagTextFieldCell
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

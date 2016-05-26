@@ -7,6 +7,8 @@
 
 #import "AKTagsLookup.h"
 #import "AKTagsListView.h"
+#import "AKTagsLayoutManager.h"
+
 
 @interface AKTagsLookup () <AKTagsListViewDelegate>
 {
@@ -17,7 +19,7 @@
 
 @implementation AKTagsLookup
 
--(id)initWithTags:(NSArray *)tags
+-(instancetype)initWithTags:(NSArray *)tags
 {
     self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 44)];
     if (self) {
@@ -25,8 +27,8 @@
 		_tagsView = [[AKTagsListView alloc] initWithFrame:self.bounds];
 		_tagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		_tagsView.selectedTags = [NSMutableArray arrayWithArray:tags];
-		_tagsView.backgroundColor = [UIColor clearColor];
-		_tagsView.collectionView.backgroundColor = [UIColor clearColor];
+		_tagsView.backgroundColor = [AKTagsLayoutManager sharedManager].lookupViewBackgroundColor;
+		_tagsView.collectionView.backgroundColor = [AKTagsLayoutManager sharedManager].lookupViewBackgroundColor;
 		_tagsView.delegate = self;
 		self.backgroundColor = [UIColor clearColor];
 		[self addSubview:_tagsView];
