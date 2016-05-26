@@ -13,11 +13,26 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-	frame.size.height = 44;
+    frame.size.height = 44;
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.collectionView];
-		_selectedTags = [NSMutableArray array];
+        [self initialParentSetup];
+    }
+    return self;
+}
+
+- (void) initialParentSetup
+{
+    [self addSubview:self.collectionView];
+    _selectedTags = [NSMutableArray array];
+}
+
+- (instancetype) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        [self initialParentSetup];
     }
     return self;
 }

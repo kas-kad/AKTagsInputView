@@ -27,22 +27,28 @@
 -(instancetype) initWithFrame: (CGRect) frame
 {
     if (self = [super initWithFrame:frame]){
-        self.allowDeleteTags = YES;
-        _insertingInProgress = NO;
-        _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
-        [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
-        [self initLayout];
+       [self initialSetup];
     }
     return self;
 }
 
-- (void) awakeFromNib
+- (void) initialSetup
 {
     self.allowDeleteTags = YES;
     _insertingInProgress = NO;
     _forbiddenCharsString = DEFAULT_FORBIDDEN_CHARS_STRING;
     [self.collectionView registerClass:[AKTagTextFieldCell class] forCellWithReuseIdentifier:@"textFieldCell"];
     [self initLayout];
+}
+
+- (instancetype) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        [self initialSetup];
+    }
+    return self;
 }
 
 - (void) initLayout
