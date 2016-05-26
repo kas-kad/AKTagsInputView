@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		332591561CF729AC00BAF353 /* UIImage+AKMaskColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 332591551CF729AC00BAF353 /* UIImage+AKMaskColor.m */; };
+		332591591CF72D6A00BAF353 /* AKTagsLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 332591581CF72D6A00BAF353 /* AKTagsLayoutManager.m */; };
 		B9676C141977004C00AFCE83 /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C061977004C00AFCE83 /* AKTagCell.m */; };
 		B9676C151977004C00AFCE83 /* AKTagsInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C091977004C00AFCE83 /* AKTagsInputView.m */; };
 		B9676C161977004C00AFCE83 /* AKTagsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9676C0B1977004C00AFCE83 /* AKTagsListView.m */; };
@@ -27,10 +29,8 @@
 		B9EC365B193B797C0007C5FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9EC363D193B797C0007C5FF /* UIKit.framework */; };
 		B9EC3663193B797C0007C5FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3661193B797C0007C5FF /* InfoPlist.strings */; };
 		B9EC3665193B797C0007C5FF /* AKTagsInputViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EC3664193B797C0007C5FF /* AKTagsInputViewExampleTests.m */; };
-		B9EC3684193B7A9D0007C5FF /* cross_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3682193B7A9D0007C5FF /* cross_icon.png */; };
-		B9EC3685193B7A9D0007C5FF /* cross_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3683193B7A9D0007C5FF /* cross_icon@2x.png */; };
-		B9EC3688193B7AA70007C5FF /* cross_red_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3686193B7AA70007C5FF /* cross_red_icon.png */; };
-		B9EC3689193B7AA70007C5FF /* cross_red_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3687193B7AA70007C5FF /* cross_red_icon@2x.png */; };
+		B9EC3688193B7AA70007C5FF /* cross_icon_template.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3686193B7AA70007C5FF /* cross_icon_template.png */; };
+		B9EC3689193B7AA70007C5FF /* cross_icon_template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EC3687193B7AA70007C5FF /* cross_icon_template@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		332591541CF729AC00BAF353 /* UIImage+AKMaskColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AKMaskColor.h"; sourceTree = "<group>"; };
+		332591551CF729AC00BAF353 /* UIImage+AKMaskColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AKMaskColor.m"; sourceTree = "<group>"; };
+		332591571CF72D6A00BAF353 /* AKTagsLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsLayoutManager.h; sourceTree = "<group>"; };
+		332591581CF72D6A00BAF353 /* AKTagsLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsLayoutManager.m; sourceTree = "<group>"; };
+		3325915A1CF72F5800BAF353 /* AKTagsInputViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsInputViewDelegate.h; sourceTree = "<group>"; };
+		3325915B1CF730DC00BAF353 /* AKTagsLookupDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsLookupDelegate.h; sourceTree = "<group>"; };
+		3325915C1CF7347A00BAF353 /* AKTagCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCellDelegate.h; sourceTree = "<group>"; };
 		502817EF1A99EF8600304109 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B9676C051977004C00AFCE83 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
 		B9676C061977004C00AFCE83 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
@@ -78,10 +85,8 @@
 		B9EC3660193B797C0007C5FF /* AKTagsInputViewExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AKTagsInputViewExampleTests-Info.plist"; sourceTree = "<group>"; };
 		B9EC3662193B797C0007C5FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B9EC3664193B797C0007C5FF /* AKTagsInputViewExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKTagsInputViewExampleTests.m; sourceTree = "<group>"; };
-		B9EC3682193B7A9D0007C5FF /* cross_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_icon.png; sourceTree = "<group>"; };
-		B9EC3683193B7A9D0007C5FF /* cross_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_icon@2x.png"; sourceTree = "<group>"; };
-		B9EC3686193B7AA70007C5FF /* cross_red_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_red_icon.png; sourceTree = "<group>"; };
-		B9EC3687193B7AA70007C5FF /* cross_red_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_red_icon@2x.png"; sourceTree = "<group>"; };
+		B9EC3686193B7AA70007C5FF /* cross_icon_template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_icon_template.png; sourceTree = "<group>"; };
+		B9EC3687193B7AA70007C5FF /* cross_icon_template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_icon_template@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,19 +191,26 @@
 			children = (
 				B9676C051977004C00AFCE83 /* AKTagCell.h */,
 				B9676C061977004C00AFCE83 /* AKTagCell.m */,
+				3325915C1CF7347A00BAF353 /* AKTagCellDelegate.h */,
 				B9676C071977004C00AFCE83 /* AKTagsDefines.h */,
 				B9676C081977004C00AFCE83 /* AKTagsInputView.h */,
 				B9676C091977004C00AFCE83 /* AKTagsInputView.m */,
+				3325915A1CF72F5800BAF353 /* AKTagsInputViewDelegate.h */,
 				B9676C0A1977004C00AFCE83 /* AKTagsListView.h */,
 				B9676C0B1977004C00AFCE83 /* AKTagsListView.m */,
 				B9676C0C1977004C00AFCE83 /* AKTagsLookup.h */,
 				B9676C0D1977004C00AFCE83 /* AKTagsLookup.m */,
+				3325915B1CF730DC00BAF353 /* AKTagsLookupDelegate.h */,
 				B9676C0E1977004C00AFCE83 /* AKTagTextFieldCell.h */,
 				B9676C0F1977004C00AFCE83 /* AKTagTextFieldCell.m */,
 				B9676C101977004C00AFCE83 /* AKTextField.h */,
 				B9676C111977004C00AFCE83 /* AKTextField.m */,
+				332591571CF72D6A00BAF353 /* AKTagsLayoutManager.h */,
+				332591581CF72D6A00BAF353 /* AKTagsLayoutManager.m */,
 				B9676C121977004C00AFCE83 /* NSString+StringSizeWithFont.h */,
 				B9676C131977004C00AFCE83 /* NSString+StringSizeWithFont.m */,
+				332591541CF729AC00BAF353 /* UIImage+AKMaskColor.h */,
+				332591551CF729AC00BAF353 /* UIImage+AKMaskColor.m */,
 				B9EC3681193B7A5A0007C5FF /* Resources */,
 				502817EF1A99EF8600304109 /* Constants.h */,
 			);
@@ -209,10 +221,8 @@
 		B9EC3681193B7A5A0007C5FF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B9EC3686193B7AA70007C5FF /* cross_red_icon.png */,
-				B9EC3687193B7AA70007C5FF /* cross_red_icon@2x.png */,
-				B9EC3682193B7A9D0007C5FF /* cross_icon.png */,
-				B9EC3683193B7A9D0007C5FF /* cross_icon@2x.png */,
+				B9EC3686193B7AA70007C5FF /* cross_icon_template.png */,
+				B9EC3687193B7AA70007C5FF /* cross_icon_template@2x.png */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -295,11 +305,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9EC3685193B7A9D0007C5FF /* cross_icon@2x.png in Resources */,
-				B9EC3688193B7AA70007C5FF /* cross_red_icon.png in Resources */,
+				B9EC3688193B7AA70007C5FF /* cross_icon_template.png in Resources */,
 				B9EC3652193B797C0007C5FF /* Images.xcassets in Resources */,
-				B9EC3684193B7A9D0007C5FF /* cross_icon.png in Resources */,
-				B9EC3689193B7AA70007C5FF /* cross_red_icon@2x.png in Resources */,
+				B9EC3689193B7AA70007C5FF /* cross_icon_template@2x.png in Resources */,
 				B9EC3644193B797C0007C5FF /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +330,8 @@
 				B9676C181977004C00AFCE83 /* AKTagTextFieldCell.m in Sources */,
 				B9EC364A193B797C0007C5FF /* AKAppDelegate.m in Sources */,
 				B9676C161977004C00AFCE83 /* AKTagsListView.m in Sources */,
+				332591561CF729AC00BAF353 /* UIImage+AKMaskColor.m in Sources */,
+				332591591CF72D6A00BAF353 /* AKTagsLayoutManager.m in Sources */,
 				B9676C151977004C00AFCE83 /* AKTagsInputView.m in Sources */,
 				B9676C191977004C00AFCE83 /* AKTextField.m in Sources */,
 				B9EC3650193B797C0007C5FF /* AKViewController.m in Sources */,
