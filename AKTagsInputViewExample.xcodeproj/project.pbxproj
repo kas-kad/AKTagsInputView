@@ -51,6 +51,7 @@
 		3325915A1CF72F5800BAF353 /* AKTagsInputViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsInputViewDelegate.h; sourceTree = "<group>"; };
 		3325915B1CF730DC00BAF353 /* AKTagsLookupDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsLookupDelegate.h; sourceTree = "<group>"; };
 		3325915C1CF7347A00BAF353 /* AKTagCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCellDelegate.h; sourceTree = "<group>"; };
+		337BD0CC1CF83BBD007A1C04 /* AKTagsListViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsListViewDelegate.h; sourceTree = "<group>"; };
 		502817EF1A99EF8600304109 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B9676C051977004C00AFCE83 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
 		B9676C061977004C00AFCE83 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 				3325915A1CF72F5800BAF353 /* AKTagsInputViewDelegate.h */,
 				B9676C0A1977004C00AFCE83 /* AKTagsListView.h */,
 				B9676C0B1977004C00AFCE83 /* AKTagsListView.m */,
+				337BD0CC1CF83BBD007A1C04 /* AKTagsListViewDelegate.h */,
 				B9676C0C1977004C00AFCE83 /* AKTagsLookup.h */,
 				B9676C0D1977004C00AFCE83 /* AKTagsLookup.m */,
 				3325915B1CF730DC00BAF353 /* AKTagsLookupDelegate.h */,

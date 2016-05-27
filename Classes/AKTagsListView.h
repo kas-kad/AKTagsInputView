@@ -7,13 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AKTagCell.h"
+#import "AKTagsListViewDelegate.h"
 
 #define CONTENT_LEFT_MARGIN 15.0f
-
-@class AKTagsListView;
-@protocol AKTagsListViewDelegate <NSObject>
--(void)tagsListView:(AKTagsListView*)tagsView didSelectTag:(NSString*)tag atIndexPath:(NSIndexPath*)indexPath;
-@end
 
 @interface AKTagsListView : UIView
 <
