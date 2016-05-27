@@ -27,8 +27,8 @@
 {
     if (self = [super init])
     {
-        self.tagBackgroundDefaultColor = [[UIColor lightGrayColor] colorWithAlphaComponent: 0.5f];
-        self.tagTextDefaultColor = [UIColor darkGrayColor];
+        self.tagBackgroundDefaultColor = WK_COLOR_GRAY_77;
+        self.tagTextDefaultColor = WK_COLOR_GRAY_244;
         
         self.tagSuggestionBackgroundColor = WK_COLOR_RED_TAG_COLOR;
         self.tagSuggestionTextColor = [UIColor whiteColor];

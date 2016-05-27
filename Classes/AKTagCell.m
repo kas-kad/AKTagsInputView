@@ -26,18 +26,19 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-		self.backgroundColor = WK_COLOR_GRAY_244;
-		self.layer.cornerRadius = 3;
-		self.clipsToBounds = YES;
+    if (self)
+    {
+        self.backgroundColor = [AKTagsLayoutManager sharedManager].tagBackgroundDefaultColor;
+        self.layer.cornerRadius = 3;
+        self.clipsToBounds = YES;
         
-		_tagLabel = [[UILabel alloc] initWithFrame:self.bounds];
-		_tagLabel.frame = UIEdgeInsetsInsetRect(_tagLabel.frame, UIEdgeInsetsMake(0, TAG_CELL_PADDING, 0, TAG_CELL_PADDING));
-		_tagLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-		_tagLabel.font = TAG_CELL_FONT;
-		_tagLabel.textColor = WK_COLOR_GRAY_77;
-	
-		[self addSubview:_tagLabel];
+        _tagLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _tagLabel.frame = UIEdgeInsetsInsetRect(_tagLabel.frame, UIEdgeInsetsMake(0, TAG_CELL_PADDING, 0, TAG_CELL_PADDING));
+        _tagLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tagLabel.font = TAG_CELL_FONT;
+        _tagLabel.textColor = [AKTagsLayoutManager sharedManager].tagTextDefaultColor;
+        
+        [self addSubview:_tagLabel];
     }
     return self;
 }
