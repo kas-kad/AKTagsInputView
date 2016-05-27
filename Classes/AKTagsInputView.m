@@ -267,7 +267,9 @@
 {
     if ([selectedTags isKindOfClass: [NSMutableArray class]])
     {
-        [super setSelectedTags:selectedTags];
+        [super setSelectedTags: selectedTags];
+        [_lookup filterLookupWithPredicate: [self predicateExcludingTags:self.selectedTags]];
+        [self.collectionView reloadData];
     }
     else
     {
