@@ -13,13 +13,13 @@
 	BOOL _shouldDrawPlaceholder;
 }
 
--(id)init{
+-(instancetype)init{
 	if (self = [super init]){
 		[self _initialize];
 	}
 	return self;
 }
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

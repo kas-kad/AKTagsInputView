@@ -6,17 +6,13 @@
 //
 
 #import "AKTagsListView.h"
+#import "AKTagsInputViewDelegate.h"
+#import "AKTagsLayoutManager.h"
+
 #define DEFAULT_FORBIDDEN_CHARS_STRING (@"!$%^&*+.") // these chars are standart hashtags forbidden ones, but I'd allow 'space' char
 
-@class AKTagsInputView;
-@protocol AKTagsInputViewDelegate <AKTagsListViewDelegate>
-@optional
--(BOOL)validateTag:(NSString*)tagName;
--(void)tagsInputViewDidBeginEditing:(AKTagsInputView*)inputView;
--(void)tagsInputViewDidEndEditing:(AKTagsInputView*)inputView;
--(void)tagsInputViewDidAddTag:(AKTagsInputView*)inputView;
--(void)tagsInputViewDidRemoveTag:(AKTagsInputView*)inputView;
-@end
+
+@class AKTagsLayoutManager;
 
 @interface AKTagsInputView : AKTagsListView
 
@@ -40,4 +36,7 @@
  */
 @property (nonatomic, assign) BOOL enableTagsLookup;
 @property (nonatomic, strong) NSArray *lookupTags;
+
+@property (nonatomic, readonly) AKTagsLayoutManager *layoutManager;
+
 @end

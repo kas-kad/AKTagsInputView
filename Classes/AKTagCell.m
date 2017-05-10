@@ -7,6 +7,9 @@
 #import "AKTagsDefines.h"
 #import "AKTagCell.h"
 #import "NSString+StringSizeWithFont.h"
+#import "UIImage+AKMaskColor.h"
+#import "AKTagsLayoutManager.h"
+
 #define TAG_CELL_PADDING 5.0f
 #define TAG_CELL_BTN_W 14.0f
 #define TAG_CELL_H 25.0f
@@ -20,21 +23,22 @@
 
 @implementation AKTagCell
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-		self.backgroundColor = WK_COLOR_GRAY_244;
-		self.layer.cornerRadius = 3;
-		self.clipsToBounds = YES;
+    if (self)
+    {
+        self.backgroundColor = [AKTagsLayoutManager sharedManager].tagBackgroundDefaultColor;
+        self.layer.cornerRadius = 3;
+        self.clipsToBounds = YES;
         
-		_tagLabel = [[UILabel alloc] initWithFrame:self.bounds];
-		_tagLabel.frame = UIEdgeInsetsInsetRect(_tagLabel.frame, UIEdgeInsetsMake(0, TAG_CELL_PADDING, 0, TAG_CELL_PADDING));
-		_tagLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-		_tagLabel.font = TAG_CELL_FONT;
-		_tagLabel.textColor = WK_COLOR_GRAY_77;
-	
-		[self addSubview:_tagLabel];
+        _tagLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _tagLabel.frame = UIEdgeInsetsInsetRect(_tagLabel.frame, UIEdgeInsetsMake(0, TAG_CELL_PADDING, 0, TAG_CELL_PADDING));
+        _tagLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tagLabel.font = TAG_CELL_FONT;
+        _tagLabel.textColor = [AKTagsLayoutManager sharedManager].tagTextDefaultColor;
+        
+        [self addSubview:_tagLabel];
     }
     return self;
 }
@@ -72,8 +76,8 @@
 {
 	if (!_deleteButton){
 		_deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.bounds) - TAG_CELL_BTN_W - TAG_CELL_PADDING, CGRectGetMidY(self.bounds)-TAG_CELL_BTN_W/2, TAG_CELL_BTN_W, TAG_CELL_BTN_W)];
-		[_deleteButton setBackgroundImage:[UIImage imageNamed:@"cross_red_icon"] forState:UIControlStateNormal];
-		[_deleteButton setBackgroundImage:[UIImage imageNamed:@"cross_icon"] forState:UIControlStateDisabled];
+		[_deleteButton setBackgroundImage:[[UIImage imageNamed:@"cross_icon_template"] ak_fillAlphaMaskWithColor: [AKTagsLayoutManager sharedManager].deleteTagConfirmColor] forState:UIControlStateNormal];
+		[_deleteButton setBackgroundImage:[[UIImage imageNamed:@"cross_icon_template"] ak_fillAlphaMaskWithColor: [AKTagsLayoutManager sharedManager].deleteTagDefaultColor] forState:UIControlStateDisabled];
 		_deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		_deleteButton.enabled = NO;
 		[_deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
