@@ -12,7 +12,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-	frame.size.height = 44;
+	//frame.size.height = 44;
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.collectionView];
@@ -24,20 +24,19 @@
 -(UICollectionView*)collectionView
 {
 	if (!_collectionView){
-		UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
-		flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-		flow.minimumLineSpacing = 10;
-		flow.minimumInteritemSpacing = 10;
-		flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+		UICollectionViewFlowLayout *flow    = [[UICollectionViewFlowLayout alloc] init];
+		flow.minimumLineSpacing             = 10;
+		flow.minimumInteritemSpacing        = 10;
+		flow.scrollDirection                = UICollectionViewScrollDirectionHorizontal;
 		
 		_collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flow];
-		_collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-		_collectionView.dataSource = self;
-		_collectionView.backgroundColor = [UIColor whiteColor];
-		_collectionView.allowsMultipleSelection = NO;
-		_collectionView.delegate = self;
-		_collectionView.showsHorizontalScrollIndicator = NO;
-		_collectionView.showsVerticalScrollIndicator = NO;
+		_collectionView.autoresizingMask                = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		_collectionView.dataSource                      = self;
+		_collectionView.backgroundColor                 = [UIColor whiteColor];
+		_collectionView.allowsMultipleSelection         = NO;
+		_collectionView.delegate                        = self;
+		_collectionView.showsHorizontalScrollIndicator  = NO;
+		_collectionView.showsVerticalScrollIndicator    = NO;
 		[_collectionView registerClass:[AKTagCell class] forCellWithReuseIdentifier:@"tagsViewCell"];
 	}
 	return _collectionView;
@@ -53,7 +52,7 @@
 #pragma mark - CV Layout
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, CONTENT_LEFT_MARGIN, 0, 0);
+    return UIEdgeInsetsMake(CONTENT_LEFT_MARGIN, CONTENT_LEFT_MARGIN, 0, 0);
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -77,39 +76,45 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	AKTagCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tagsViewCell" forIndexPath:indexPath];
-	cell.tagName = self.selectedTags[indexPath.row];
-	cell.delegate = self;
-	cell.showDeleteButton = self.allowDeleteTags;
+	AKTagCell *cell         = [collectionView dequeueReusableCellWithReuseIdentifier:@"tagsViewCell" forIndexPath:indexPath];
+	cell.tagName            = self.selectedTags[indexPath.row];
+	cell.delegate           = self;
+	cell.showDeleteButton   = self.allowDeleteTags;
 	[self configureCell:cell atIndexPath:indexPath];
 	return cell;
 }
 
 -(void)configureCell:(AKTagCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
-	cell.backgroundColor = WK_COLOR_RED_TAG_COLOR;
+	cell.backgroundColor    = WK_COLOR_RED_TAG_COLOR;
 	cell.tagLabel.textColor = [UIColor whiteColor];
-	cell.layer.borderWidth = 1;
-	cell.layer.borderColor = WK_COLOR_DARK_RED_TAG_COLOR.CGColor;
+	cell.layer.borderWidth  = 1;
+	cell.layer.borderColor  = WK_COLOR_DARK_RED_TAG_COLOR.CGColor;
 }
 
 #pragma mark - Helpers
 -(NSString*)squashWhitespaces:(NSString*)string
 {
-	NSString *result = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	NSString *result    = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	NSArray *components = [result componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-	components = [components filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self <> ''"]];
+	components          = [components filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self <> ''"]];
 	result = [components componentsJoinedByString:@" "];
 	return result;
 }
 
 - (void)scrollListInsertingItem:(NSString *)string
 {
-	CGFloat width = CGRectGetWidth(self.bounds);
-	CGFloat contentXOffset = (self.collectionView.contentSize.width - width);
-	contentXOffset = MAX(contentXOffset + [AKTagCell preferredSizeWithTag:string deleteButtonEnabled:_allowDeleteTags].width, 0);
-	CGPoint offset = CGPointMake(contentXOffset, 0);
-	[self.collectionView setContentOffset:offset animated:YES];
+    //TODO: IF scroll vertical, scroll vertical instead of horizontal
+    if(self.scrollDirection == UICollectionViewScrollDirectionHorizontal){
+        CGFloat width = CGRectGetWidth(self.bounds);
+        CGFloat contentXOffset = (self.collectionView.contentSize.width - width);
+        contentXOffset = MAX(contentXOffset + [AKTagCell preferredSizeWithTag:string deleteButtonEnabled:_allowDeleteTags].width, 0);
+        CGPoint offset = CGPointMake(contentXOffset, 0);
+        [self.collectionView setContentOffset:offset animated:YES];
+    }
+    else{
+        
+    }
 }
 
 - (void)addNewItemWithString:(NSString *)string completion:(void(^)(void))compeltion
@@ -154,5 +159,12 @@
 	for (NSIndexPath *ip in ipaths){
 		[self.selectedTags removeObjectAtIndex:ip.row];
 	}
+}
+
+-(void)setScrollDirection:(UICollectionViewScrollDirection)scrollDirection{
+    _scrollDirection                = scrollDirection;
+    UICollectionViewFlowLayout * l  = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    l.scrollDirection               = scrollDirection;
+    [_collectionView reloadData];
 }
 @end
