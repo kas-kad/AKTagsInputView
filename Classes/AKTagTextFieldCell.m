@@ -21,4 +21,10 @@
     }
     return self;
 }
+
+- (BOOL)becomeFirstResponder
+{
+  return [_textField becomeFirstResponder];
+}
+
 @end
